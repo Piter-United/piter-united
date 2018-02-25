@@ -33,7 +33,6 @@ export default {
         data: {
           allCompanies: companies,
           allEvents: events,
-          Event: event,
           allCommunities: communities,
         },
         errors,
@@ -46,7 +45,7 @@ export default {
       {
         path: '/',
         component: 'src/containers/Home',
-        getData: () => ({ event, communities }),
+        getData: () => ({ communities }),
       },
       {
         path: '/event',

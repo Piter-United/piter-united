@@ -1,4 +1,4 @@
-const eventInfo = `
+export const eventInfo = `
 id
 name
 date
@@ -48,10 +48,7 @@ infoPartners {
 
 const query = `
 query {
-  allEvents {
-    ${eventInfo}
-  }
-  Event(id: "cje306m4g69or0132wphzlzqm") {
+  allEvents(orderBy: date_DESC) {
     ${eventInfo}
   }
   allCommunities {
