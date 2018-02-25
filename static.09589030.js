@@ -70,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "http://pu.piterjs.org/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 19);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -102,7 +102,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _img = __webpack_require__(30);
+var _img = __webpack_require__(32);
 
 var _img2 = _interopRequireDefault(_img);
 
@@ -113,12 +113,12 @@ var Btn = function Btn(_ref) {
       text = _ref.text;
   return _react2.default.createElement(
     _reactStatic.Link,
-    { to: to, className: 'btn btn-light', style: { marginRight: "10px" }, role: 'button' },
+    { to: to, className: 'btn btn-light', style: { marginRight: '10px' }, role: 'button' },
     text
   );
 };
 
-var layout = function layout(_ref2) {
+var Layout = function Layout(_ref2) {
   var buttons = _ref2.buttons,
       children = _ref2.children;
   return _react2.default.createElement(
@@ -127,7 +127,7 @@ var layout = function layout(_ref2) {
     _react2.default.createElement(
       'div',
       { className: 'malina-left' },
-      _react2.default.createElement('img', { src: _img2.default, style: { width: "400px" } })
+      _react2.default.createElement('img', { alt: '', src: _img2.default, style: { width: '400px' } })
     ),
     _react2.default.createElement(
       'div',
@@ -150,7 +150,7 @@ var layout = function layout(_ref2) {
   );
 };
 
-exports.default = layout;
+exports.default = Layout;
 
 /***/ }),
 /* 3 */
@@ -182,9 +182,44 @@ module.exports = function(module) {
 
 /***/ }),
 /* 4 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = require("react-apollo");
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _dateFns = __webpack_require__(9);
+
+var _ru = __webpack_require__(10);
+
+var _ru2 = _interopRequireDefault(_ru);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EventDate = function EventDate(_ref) {
+  var start = _ref.start,
+      end = _ref.end;
+
+  if ((0, _dateFns.isEqual)((0, _dateFns.format)(start, 'YYYY-MM-DD'), (0, _dateFns.format)(end, 'YYYY-MM-DD'))) {
+    return (0, _dateFns.format)(start, 'DD MMMM YYYY', { locale: _ru2.default });
+  }
+  return _react2.default.createElement(
+    'span',
+    null,
+    (0, _dateFns.format)(start, 'DD', { locale: _ru2.default }),
+    ' - ',
+    (0, _dateFns.format)(end, 'DD MMMM YYYY', { locale: _ru2.default })
+  );
+};
+
+exports.default = EventDate;
 
 /***/ }),
 /* 5 */
@@ -319,6 +354,9 @@ module.exports = require("prop-types");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.Redir = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _react = __webpack_require__(0);
 
@@ -326,27 +364,71 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _layout = __webpack_require__(2);
+var _Layout = __webpack_require__(2);
 
-var _layout2 = _interopRequireDefault(_layout);
+var _Layout2 = _interopRequireDefault(_Layout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Redir = exports.Redir = function (_React$Component) {
+  _inherits(Redir, _React$Component);
+
+  function Redir() {
+    _classCallCheck(this, Redir);
+
+    return _possibleConstructorReturn(this, (Redir.__proto__ || Object.getPrototypeOf(Redir)).apply(this, arguments));
+  }
+
+  _createClass(Redir, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      if (this.props.id) {
+        var int = setInterval(function () {
+          clearInterval(int);
+          _this2.setState({ redirect: true });
+        }, 5000);
+        this.setState({ int: int });
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      clearInterval(this.state.int);
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var id = this.props.id;
+      var redirect = this.state.redirect;
+
+      if (redirect && !window.redirected) {
+        window.redirected = true;
+        return _react2.default.createElement(_reactStatic.Redirect, { to: '/event/' + id });
+      }
+      return null;
+    }
+  }]);
+
+  return Redir;
+}(_react2.default.Component);
 
 exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
   var event = _ref.event,
       communities = _ref.communities;
-
-  if (event) {
-    setTimeout(function () {
-      return location.href = '/event/' + event.id;
-    }, 5000);
-  }
   return _react2.default.createElement(
-    _layout2.default,
+    _Layout2.default,
     null,
     event && _react2.default.createElement(
       'h1',
-      { style: { marginTop: "20px" } },
+      { style: { marginTop: '20px' } },
       'Next event: ',
       _react2.default.createElement(
         _reactStatic.Link,
@@ -359,12 +441,13 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
       null,
       'Community list'
     ),
+    _react2.default.createElement(Redir, { id: event.id }),
     _react2.default.createElement(
       'div',
       { style: {
-          display: "flex",
-          flexDirection: "row"
-        } },
+          display: 'flex',
+          flexDirection: 'row' }
+      },
       communities.map(function (_ref2) {
         var id = _ref2.id,
             name = _ref2.name,
@@ -377,11 +460,11 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
             key: id,
             className: 'card',
             style: {
-              width: "18rem",
-              marginRight: "5px",
-              marginLeft: "5px",
-              marginBottom: "5px"
-            } },
+              width: '18rem',
+              marginRight: '5px',
+              marginLeft: '5px',
+              marginBottom: '5px' }
+          },
           _react2.default.createElement('img', { className: 'card-img-top', src: logo.url, alt: name }),
           _react2.default.createElement(
             'div',
@@ -424,17 +507,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _amount = __webpack_require__(31);
+var _amount = __webpack_require__(33);
 
 var _amount2 = _interopRequireDefault(_amount);
 
-var _participants = __webpack_require__(32);
+var _participants = __webpack_require__(34);
 
 var _participants2 = _interopRequireDefault(_participants);
 
-var _layout = __webpack_require__(2);
+var _Layout = __webpack_require__(2);
 
-var _layout2 = _interopRequireDefault(_layout);
+var _Layout2 = _interopRequireDefault(_Layout);
+
+var _EventDate = __webpack_require__(4);
+
+var _EventDate2 = _interopRequireDefault(_EventDate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -444,11 +531,11 @@ var BackBtn = function BackBtn(event) {
     { key: 1, className: 'back' },
     _react2.default.createElement(
       _reactStatic.Link,
-      { to: '/event/' + event.id, className: 'btn btn-light', role: 'button' },
+      { to: '/event/' + event.id, className: 'btn btn-light back-button', activeClassName: 'null', role: 'button' },
       _react2.default.createElement('span', { className: 'oi oi-arrow-left' }),
       _react2.default.createElement(
         'span',
-        { style: { paddingLeft: "12px", fontWeight: 600 } },
+        { style: { paddingLeft: '12px', fontWeight: '600' } },
         '\u041D\u0430\u0437\u0430\u0434'
       )
     )
@@ -467,7 +554,7 @@ var BackBtn = function BackBtn(event) {
       _react2.default.createElement(
         'span',
         { className: 'badge-desc' },
-        event.date,
+        _react2.default.createElement(_EventDate2.default, { start: event.date, end: event.dateEnd }),
         ', ',
         event.address
       )
@@ -483,7 +570,7 @@ var BackBtn = function BackBtn(event) {
 exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
   var event = _ref.event;
   return _react2.default.createElement(
-    _layout2.default,
+    _Layout2.default,
     { buttons: BackBtn(event) },
     _react2.default.createElement(
       'div',
@@ -540,7 +627,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
               '\u0424\u043E\u0440\u043C\u0430\u0442:'
             ),
             _react2.default.createElement('br', null),
-            '\u041A\u0430\u0436\u0434\u044B\u0439 \u0441\u043B\u0435\u0442 \u044D\u0442\u043E \u043E\u0442 15 \u0434\u043E 20 \u043F\u0430\u0440\u0430\u043B\u043B\u0435\u043B\u044C\u043D\u044B\u0445 \u043F\u043E\u0442\u043E\u043A\u043E\u0432. \u041A\u0430\u0436\u0434\u043E\u0435 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E \u0433\u043E\u0442\u043E\u0432\u0438\u0442  \u0441\u0432\u043E\u044E \u0443\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u0443\u044E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0443: \u0434\u043E\u043A\u043B\u0430\u0434\u044B, \u043A\u0440\u0443\u0433\u043B\u044B\u0435 \u0441\u0442\u043E\u043B\u044B, \u043C\u0430\u0441\u0442\u0435\u0440-\u043A\u043B\u0430\u0441\u0441\u044B \u0438 \u0442.\u0434.'
+            '\u041A\u0430\u0436\u0434\u044B\u0439 \u0441\u043B\u0435\u0442 \u044D\u0442\u043E \u043E\u0442 15 \u0434\u043E 20 \u043F\u0430\u0440\u0430\u043B\u043B\u0435\u043B\u044C\u043D\u044B\u0445 \u043F\u043E\u0442\u043E\u043A\u043E\u0432. \u041A\u0430\u0436\u0434\u043E\u0435 \u0441\u043E\u043E\u0431\u0449\u0435\u0441\u0442\u0432\u043E \u0433\u043E\u0442\u043E\u0432\u0438\u0442 \u0441\u0432\u043E\u044E \u0443\u043D\u0438\u043A\u0430\u043B\u044C\u043D\u0443\u044E \u043F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0443: \u0434\u043E\u043A\u043B\u0430\u0434\u044B, \u043A\u0440\u0443\u0433\u043B\u044B\u0435 \u0441\u0442\u043E\u043B\u044B, \u043C\u0430\u0441\u0442\u0435\u0440-\u043A\u043B\u0430\u0441\u0441\u044B \u0438 \u0442.\u0434.'
           )
         ),
         _react2.default.createElement(
@@ -563,7 +650,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
     _react2.default.createElement(
       'div',
       { className: 'container-fluid itgm-video' },
-      _react2.default.createElement('iframe', { src: 'https://player.vimeo.com/video/163001915?title=0&byline=0&portrait=0', width: '100%', height: '484', frameborder: '0', webkitallowfullscreen: true, mozallowfullscreen: true, allowfullscreen: true })
+      _react2.default.createElement('iframe', { title: 'Video', src: 'https://player.vimeo.com/video/163001915?title=0&byline=0&portrait=0', width: '100%', height: '484', frameBorder: '0', webkitallowfullscreen: true, mozallowfullscreen: true, allowFullScreen: true })
     ),
     _react2.default.createElement(
       'div',
@@ -581,19 +668,21 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           'div',
           { className: 'col-lg' },
           _react2.default.createElement('br', null),
-          _react2.default.createElement('img', { src: _amount2.default, style: { width: "100%" } })
+          _react2.default.createElement('img', { alt: '', src: _amount2.default, style: { width: '100%' } })
         ),
         _react2.default.createElement(
           'div',
           { className: 'col-lg' },
           _react2.default.createElement('br', null),
           _react2.default.createElement('img', {
+            alt: '',
             src: _participants2.default,
             style: {
-              width: "80%",
-              marginLeft: "auto",
-              marginRight: "auto",
-              display: "block" } })
+              width: '80%',
+              marginLeft: 'auto',
+              marginRight: 'auto',
+              display: 'block' }
+          })
         )
       )
     ),
@@ -632,7 +721,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           { className: 'list-group-item' },
           _react2.default.createElement(
             'a',
-            { href: 'https://medium.com/@piterunited', target: '_blank' },
+            { href: 'https://medium.com/@piterunited', rel: 'noopener noreferrer', target: '_blank' },
             '\u041F\u043E\u0441\u0442-\u0440\u0435\u043B\u0438\u0437\u044B \u043F\u043E \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0438\u043C \u0441\u043B\u0435\u0442\u0430\u043C'
           )
         ),
@@ -641,7 +730,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           { className: 'list-group-item' },
           _react2.default.createElement(
             'a',
-            { href: 'https://vk.com/albums-71691819', target: '_blank' },
+            { href: 'https://vk.com/albums-71691819', rel: 'noopener noreferrer', target: '_blank' },
             '\u0424\u043E\u0442\u043E-\u043E\u0442\u0447\u0435\u0442\u044B \u043F\u043E \u043F\u0440\u0435\u0434\u044B\u0434\u0443\u0449\u0438\u043C \u0441\u043B\u0435\u0442\u0430\u043C'
           )
         ),
@@ -650,7 +739,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           { className: 'list-group-item' },
           _react2.default.createElement(
             'a',
-            { href: 'https://vimeo.com/163001915', target: '_blank' },
+            { href: 'https://vimeo.com/163001915', rel: 'noopener noreferrer', target: '_blank' },
             '\u041F\u0440\u043E\u043C\u043E-\u0440\u043E\u043B\u0438\u043A \u0441 IT Global Meetup #7'
           )
         ),
@@ -659,7 +748,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           { className: 'list-group-item' },
           _react2.default.createElement(
             'a',
-            { href: 'https://www.youtube.com/watch?v=PbxTYPbzef0', target: '_blank' },
+            { href: 'https://www.youtube.com/watch?v=PbxTYPbzef0', rel: 'noopener noreferrer', target: '_blank' },
             '\u041F\u0440\u043E\u043C\u043E-\u0440\u043E\u043B\u0438\u043A \u0441 IT Global Meetup #3'
           )
         )
@@ -1118,7 +1207,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           _react2.default.createElement('span', { className: 'oi oi-arrow-left' }),
           _react2.default.createElement(
             'span',
-            { style: { paddingLeft: "12px", fontWeight: 600 } },
+            { style: { paddingLeft: '12px', fontWeight: '600' } },
             '\u041D\u0430\u0437\u0430\u0434'
           )
         )
@@ -1130,7 +1219,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
       _react2.default.createElement(
         'span',
         null,
-        ' '
+        '\xA0'
       )
     )
   );
@@ -1138,6 +1227,18 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
 
 /***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+module.exports = require("date-fns");
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports) {
+
+module.exports = require("date-fns/locale/ru");
+
+/***/ }),
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1155,21 +1256,25 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactApollo = __webpack_require__(4);
+var _reactApollo = __webpack_require__(12);
 
-var _graphqlTag = __webpack_require__(10);
+var _graphqlTag = __webpack_require__(35);
 
 var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
 
 var _reactStatic = __webpack_require__(1);
 
-var _layout = __webpack_require__(2);
+var _Layout = __webpack_require__(2);
 
-var _layout2 = _interopRequireDefault(_layout);
+var _Layout2 = _interopRequireDefault(_Layout);
 
-var _Text = __webpack_require__(33);
+var _Text = __webpack_require__(36);
 
 var _Text2 = _interopRequireDefault(_Text);
+
+var _EventDate = __webpack_require__(4);
+
+var _EventDate2 = _interopRequireDefault(_EventDate);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1235,7 +1340,7 @@ var Talk = function Talk(_ref2) {
       speakers.map(function (s, i) {
         return _react2.default.createElement(
           'span',
-          { key: i, style: { marginRight: "10px" } },
+          { key: i, style: { marginRight: '10px' } },
           _react2.default.createElement(Speaker, s),
           i < speakers.length - 1 && ','
         );
@@ -1248,9 +1353,9 @@ var TalksList = function TalksList(_ref3) {
   var talks = _ref3.talks,
       show = _ref3.show;
 
-  var cls = ["collapse"];
+  var cls = ['collapse'];
   if (show) {
-    cls.push("show");
+    cls.push('show');
   }
   return _react2.default.createElement(
     'div',
@@ -1300,7 +1405,7 @@ var CommunityList = function (_React$Component) {
         st.loading = next.data.loading;
         st.error = next.data.error;
       }
-      if (pr != nx) {
+      if (pr !== nx) {
         var data = {};
         nx.forEach(function (t) {
           t.community.forEach(function (c) {
@@ -1374,7 +1479,8 @@ var CommunityList = function (_React$Component) {
                   className: 'btn programm-item',
                   'data-toggle': 'collapse',
                   'aria-expanded': 'true',
-                  'aria-controls': 'collapseOne' },
+                  'aria-controls': 'collapseOne'
+                },
                 opened.includes(id) ? _react2.default.createElement('span', { className: 'oi oi-chevron-bottom' }) : _react2.default.createElement('span', { className: 'oi oi-chevron-right' }),
                 _react2.default.createElement(
                   'span',
@@ -1404,11 +1510,11 @@ var BackBtn = function BackBtn(event) {
     { key: 1, className: 'back' },
     _react2.default.createElement(
       _reactStatic.Link,
-      { to: '/event/' + event.id, className: 'btn btn-light', role: 'button' },
+      { to: '/event/' + event.id, className: 'btn btn-light back-button', activeClassName: 'null', role: 'button' },
       _react2.default.createElement('span', { className: 'oi oi-arrow-left' }),
       _react2.default.createElement(
         'span',
-        { style: { paddingLeft: "12px", fontWeight: 600 } },
+        { style: { paddingLeft: '12px', fontWeight: '600' } },
         '\u041D\u0430\u0437\u0430\u0434'
       )
     )
@@ -1427,14 +1533,14 @@ var BackBtn = function BackBtn(event) {
       _react2.default.createElement(
         'span',
         { className: 'badge-desc' },
-        event.date,
+        _react2.default.createElement(_EventDate2.default, { start: event.date, end: event.dateEnd }),
         ', ',
         event.address
       )
     ),
-    _react2.default.createElement(
+    event.registration && _react2.default.createElement(
       'a',
-      { role: 'button', className: 'btn btn-dark reg-button-badge' },
+      { href: 'https://piter-united.timepad.ru/event/' + event.timepadId + '/', target: 'blank', role: 'button', className: 'btn btn-dark reg-button-badge' },
       '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F'
     )
   )];
@@ -1443,7 +1549,7 @@ var BackBtn = function BackBtn(event) {
 exports.default = (0, _reactStatic.withRouteData)(function (_ref5) {
   var event = _ref5.event;
   return _react2.default.createElement(
-    _layout2.default,
+    _Layout2.default,
     { buttons: BackBtn(event) },
     _react2.default.createElement(
       'div',
@@ -1459,13 +1565,13 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref5) {
 });
 
 /***/ }),
-/* 10 */
+/* 12 */
 /***/ (function(module, exports) {
 
-module.exports = require("graphql-tag");
+module.exports = require("react-apollo");
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1481,13 +1587,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _imgWhite = __webpack_require__(34);
+var _imgWhite = __webpack_require__(37);
 
 var _imgWhite2 = _interopRequireDefault(_imgWhite);
 
-var _imgGreen = __webpack_require__(35);
+var _imgGreen = __webpack_require__(38);
 
 var _imgGreen2 = _interopRequireDefault(_imgGreen);
+
+var _EventDate = __webpack_require__(4);
+
+var _EventDate2 = _interopRequireDefault(_EventDate);
+
+var _EventTime = __webpack_require__(39);
+
+var _EventTime2 = _interopRequireDefault(_EventTime);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1496,17 +1610,41 @@ var PartnersList = function PartnersList(_ref) {
   return list.map(function (_ref2) {
     var id = _ref2.id,
         title = _ref2.title,
+        site = _ref2.site,
         url = _ref2.logo.url;
     return _react2.default.createElement(
       'div',
       { key: id, className: 'partner-logo' },
-      _react2.default.createElement('img', { alt: title, src: url })
+      _react2.default.createElement(
+        'a',
+        { target: '_blank', href: site },
+        _react2.default.createElement('img', { alt: title, src: url })
+      )
     );
   });
 };
 
+var shareBtns = function shareBtns(event) {
+  if (typeof document !== 'undefined') {
+    document.title = event.name;
+    setTimeout(function () {
+      var el = document.getElementById('my-share');
+      window.Ya.share2(el, {
+        content: {
+          url: location.href,
+          title: event.name,
+          description: event.name,
+          image: 'http://piter-united.ru/img/red/itgm_logo.png'
+        }
+      });
+    }, 1000);
+  }
+};
+
 exports.default = (0, _reactStatic.withRouteData)(function (_ref3) {
   var event = _ref3.event;
+
+  shareBtns(event);
   return _react2.default.createElement(
     'div',
     { className: 'background' },
@@ -1516,12 +1654,22 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref3) {
       _react2.default.createElement(
         'span',
         { className: 'logo' },
-        'Piter United'
+        _react2.default.createElement(
+          _reactStatic.Link,
+          { to: '/' },
+          'Piter United'
+        )
       ),
       _react2.default.createElement(
         'div',
         { className: 'share' },
-        'Social Share Buttons'
+        _react2.default.createElement('div', {
+          id: 'my-share',
+          'data-services': 'gplus,facebook,vkontakte,twitter,linkedin',
+          'data-lang': 'ru',
+          'data-size': 'm'
+        }),
+        _react2.default.createElement('iframe', { title: 'Slack', src: 'https://piter-united.herokuapp.com/iframe', className: '__slackin slack' })
       )
     ),
     _react2.default.createElement(
@@ -1541,7 +1689,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref3) {
       _react2.default.createElement(
         'span',
         { className: 'event-date' },
-        '17 \u043C\u0430\u0440\u0442\u0430 2018'
+        _react2.default.createElement(_EventDate2.default, { start: event.date, end: event.dateEnd })
       ),
       _react2.default.createElement(
         'span',
@@ -1551,11 +1699,13 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref3) {
       _react2.default.createElement(
         'span',
         { className: 'event-time' },
-        '\u0421\u0443\u0431\u0431\u043E\u0442\u0430 \u0441 10:00 \u0434\u043E 18:00'
+        _react2.default.createElement(_EventTime2.default, { start: event.date, end: event.dateEnd })
       ),
-      _react2.default.createElement(
+      event.registration && _react2.default.createElement(
         'button',
-        { type: 'button', className: 'btn btn-dark reg-button-primary' },
+        { type: 'button', onClick: function onClick() {
+            return window.open('https://piter-united.timepad.ru/event/' + event.timepadId + '/');
+          }, className: 'btn btn-dark reg-button-primary' },
         '\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F'
       ),
       _react2.default.createElement('br', null),
@@ -1577,7 +1727,8 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref3) {
           '\u041F\u0430\u0440\u0442\u043D\u0435\u0440\u044B:'
         )
       ),
-      _react2.default.createElement(PartnersList, { list: [].concat(event.goldPartners, event.silverPartners, event.bronzePartners, event.infoPartners) }),
+      _react2.default.createElement(PartnersList, { list: [].concat(event.goldPartners, event.silverPartners, event.bronzePartners, event.infoPartners)
+      }),
       _react2.default.createElement(
         'div',
         { className: 'partner-logo new' },
@@ -1594,196 +1745,31 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref3) {
       _react2.default.createElement(
         'span',
         null,
-        ' '
+        '\xA0'
       )
     ),
     _react2.default.createElement(
       'div',
       { className: 'logo-itgm-left-first d-none d-lg-block' },
-      _react2.default.createElement('img', { src: _imgWhite2.default, style: { width: "300px" } })
+      _react2.default.createElement('img', { alt: '', src: _imgWhite2.default, style: { width: '300px' } })
     ),
     _react2.default.createElement(
       'div',
       { className: 'logo-itgm-left-second d-none d-lg-block' },
-      _react2.default.createElement('img', { src: _imgWhite2.default, style: { width: "150px" } })
+      _react2.default.createElement('img', { alt: '', src: _imgWhite2.default, style: { width: '150px' } })
     ),
     _react2.default.createElement(
       'div',
       { className: 'logo-itgm-right-first d-none d-lg-block' },
-      _react2.default.createElement('img', { src: _imgGreen2.default, style: { width: "200px" } })
+      _react2.default.createElement('img', { alt: '', src: _imgGreen2.default, style: { width: '200px' } })
     ),
     _react2.default.createElement(
       'div',
       { className: 'logo-itgm-right-second d-none d-lg-block' },
-      _react2.default.createElement('img', { src: _imgGreen2.default, style: { width: "150px" } })
+      _react2.default.createElement('img', { alt: '', src: _imgGreen2.default, style: { width: '150px' } })
     )
   );
 });
-
-/***/ }),
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactStatic = __webpack_require__(1);
-
-var _layout = __webpack_require__(2);
-
-var _layout2 = _interopRequireDefault(_layout);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
-    var events = _ref.events;
-    return _react2.default.createElement(
-        _layout2.default,
-        null,
-        _react2.default.createElement(
-            'h1',
-            null,
-            'Events list'
-        ),
-        _react2.default.createElement('br', null),
-        _react2.default.createElement(
-            'ul',
-            null,
-            events.map(function (_ref2) {
-                var id = _ref2.id,
-                    name = _ref2.name;
-                return _react2.default.createElement(
-                    'li',
-                    { key: id },
-                    _react2.default.createElement(
-                        _reactStatic.Link,
-                        { to: '/event/' + id + '/' },
-                        name
-                    )
-                );
-            })
-        )
-    );
-});
-
-/***/ }),
-/* 13 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _templateObject = _taggedTemplateLiteral(['\n  query {\n    allEvents {\n      id\n      name\n    }\n  }\n'], ['\n  query {\n    allEvents {\n      id\n      name\n    }\n  }\n']);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactApollo = __webpack_require__(4);
-
-var _graphqlTag = __webpack_require__(10);
-
-var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
-
-var _reactStatic = __webpack_require__(1);
-
-var _layout = __webpack_require__(2);
-
-var _layout2 = _interopRequireDefault(_layout);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-var Event = function Event(_ref) {
-  var id = _ref.id,
-      name = _ref.name;
-  return _react2.default.createElement(
-    'li',
-    { key: id },
-    _react2.default.createElement(
-      _reactStatic.Link,
-      { to: '/event/' + id },
-      name
-    )
-  );
-};
-
-var Events = function Events(_ref2) {
-  var _ref2$data = _ref2.data,
-      loading = _ref2$data.loading,
-      error = _ref2$data.error,
-      allEvents = _ref2$data.allEvents;
-
-  if (loading) {
-    return _react2.default.createElement(
-      'p',
-      null,
-      'Loading...'
-    );
-  } else if (error) {
-    return _react2.default.createElement(
-      'p',
-      null,
-      'Error!'
-    );
-  }
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      'p',
-      null,
-      'Loaded successfully:'
-    ),
-    _react2.default.createElement(
-      'ul',
-      null,
-      allEvents.map(Event)
-    )
-  );
-};
-// Connexion with apollo
-var EventList = (0, _reactApollo.graphql)((0, _graphqlTag2.default)(_templateObject))(Events);
-
-// /////////////////////////////////////////////////////////
-// Actual container
-var About = function About() {
-  return _react2.default.createElement(
-    _layout2.default,
-    null,
-    _react2.default.createElement(
-      'h1',
-      null,
-      'This is what we\'re all about.'
-    ),
-    _react2.default.createElement(
-      'p',
-      null,
-      'React, static sites, performance, speed. It\'s the stuff that makes us tick.'
-    ),
-    _react2.default.createElement(
-      'h2',
-      null,
-      'Here is a person loaded from graphql:'
-    ),
-    _react2.default.createElement(EventList, null)
-  );
-};
-
-exports.default = About;
 
 /***/ }),
 /* 14 */
@@ -1802,9 +1788,98 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _layout = __webpack_require__(2);
+var _Layout = __webpack_require__(2);
 
-var _layout2 = _interopRequireDefault(_layout);
+var _Layout2 = _interopRequireDefault(_Layout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
+  var events = _ref.events;
+  return _react2.default.createElement(
+    _Layout2.default,
+    null,
+    _react2.default.createElement(
+      'h1',
+      null,
+      'Events list'
+    ),
+    _react2.default.createElement('br', null),
+    _react2.default.createElement(
+      'ul',
+      null,
+      events.map(function (_ref2) {
+        var id = _ref2.id,
+            name = _ref2.name;
+        return _react2.default.createElement(
+          'li',
+          { key: id },
+          _react2.default.createElement(
+            _reactStatic.Link,
+            { to: '/event/' + id + '/' },
+            name
+          )
+        );
+      })
+    )
+  );
+});
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Layout = __webpack_require__(2);
+
+var _Layout2 = _interopRequireDefault(_Layout);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var About = function About() {
+  return _react2.default.createElement(
+    _Layout2.default,
+    null,
+    _react2.default.createElement(
+      'h1',
+      null,
+      'This is what we\'re all about.'
+    )
+  );
+};
+
+exports.default = About;
+
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactStatic = __webpack_require__(1);
+
+var _Layout = __webpack_require__(2);
+
+var _Layout2 = _interopRequireDefault(_Layout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1814,7 +1889,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
       site = _ref$company.site,
       logo = _ref$company.logo;
   return _react2.default.createElement(
-    _layout2.default,
+    _Layout2.default,
     null,
     _react2.default.createElement(
       _reactStatic.Link,
@@ -1840,7 +1915,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
 });
 
 /***/ }),
-/* 15 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1856,16 +1931,16 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _layout = __webpack_require__(2);
+var _Layout = __webpack_require__(2);
 
-var _layout2 = _interopRequireDefault(_layout);
+var _Layout2 = _interopRequireDefault(_Layout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
   var companies = _ref.companies;
   return _react2.default.createElement(
-    _layout2.default,
+    _Layout2.default,
     null,
     _react2.default.createElement(
       'h1',
@@ -1894,7 +1969,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
 });
 
 /***/ }),
-/* 16 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1908,15 +1983,15 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _layout = __webpack_require__(2);
+var _Layout = __webpack_require__(2);
 
-var _layout2 = _interopRequireDefault(_layout);
+var _Layout2 = _interopRequireDefault(_Layout);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function () {
   return _react2.default.createElement(
-    _layout2.default,
+    _Layout2.default,
     null,
     _react2.default.createElement(
       'h1',
@@ -1927,7 +2002,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 17 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1941,11 +2016,11 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(18);
+var _reactDom = __webpack_require__(20);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _App = __webpack_require__(19);
+var _App = __webpack_require__(21);
 
 var _App2 = _interopRequireDefault(_App);
 
@@ -1970,13 +2045,13 @@ if (typeof document !== 'undefined') {
 }
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-dom");
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1992,21 +2067,21 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _reactHotLoader = __webpack_require__(20);
+var _reactHotLoader = __webpack_require__(22);
 
-var _reactStaticRoutes = __webpack_require__(21);
+var _reactStaticRoutes = __webpack_require__(23);
 
 var _reactStaticRoutes2 = _interopRequireDefault(_reactStaticRoutes);
 
-var _reactApollo = __webpack_require__(4);
+var _reactApollo = __webpack_require__(12);
 
-__webpack_require__(36);
+__webpack_require__(40);
 
-var _apollo = __webpack_require__(37);
+var _apollo = __webpack_require__(41);
 
 var _apollo2 = _interopRequireDefault(_apollo);
 
-__webpack_require__(42);
+__webpack_require__(46);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2027,13 +2102,13 @@ exports.default = (0, _reactHotLoader.hot)(module)(App);
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-hot-loader");
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2043,15 +2118,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _path2 = __webpack_require__(22);
+var _path2 = __webpack_require__(24);
 
 var _path3 = _interopRequireDefault(_path2);
 
-var _importCss2 = __webpack_require__(23);
+var _importCss2 = __webpack_require__(25);
 
 var _importCss3 = _interopRequireDefault(_importCss2);
 
-var _universalImport2 = __webpack_require__(24);
+var _universalImport2 = __webpack_require__(26);
 
 var _universalImport3 = _interopRequireDefault(_universalImport2);
 
@@ -2061,9 +2136,9 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactRouterDom = __webpack_require__(25);
+var _reactRouterDom = __webpack_require__(27);
 
-var _reactUniversalComponent = __webpack_require__(26);
+var _reactUniversalComponent = __webpack_require__(28);
 
 var _reactUniversalComponent2 = _interopRequireDefault(_reactUniversalComponent);
 
@@ -2130,7 +2205,7 @@ var t_2 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/Talks',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 9)), (0, _importCss3.default)('src/containers/Talks', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 11)), (0, _importCss3.default)('src/containers/Talks', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2140,7 +2215,7 @@ var t_2 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/Talks');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(9);
+    return /*require.resolve*/(11);
   },
   chunkName: function chunkName() {
     return 'src/containers/Talks';
@@ -2150,7 +2225,7 @@ var t_3 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/Event',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 11)), (0, _importCss3.default)('src/containers/Event', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 13)), (0, _importCss3.default)('src/containers/Event', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2160,7 +2235,7 @@ var t_3 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/Event');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(11);
+    return /*require.resolve*/(13);
   },
   chunkName: function chunkName() {
     return 'src/containers/Event';
@@ -2170,7 +2245,7 @@ var t_4 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/Events',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 12)), (0, _importCss3.default)('src/containers/Events', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 14)), (0, _importCss3.default)('src/containers/Events', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2180,7 +2255,7 @@ var t_4 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/Events');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(12);
+    return /*require.resolve*/(14);
   },
   chunkName: function chunkName() {
     return 'src/containers/Events';
@@ -2190,7 +2265,7 @@ var t_5 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/About',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 13)), (0, _importCss3.default)('src/containers/About', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 15)), (0, _importCss3.default)('src/containers/About', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2200,7 +2275,7 @@ var t_5 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/About');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(13);
+    return /*require.resolve*/(15);
   },
   chunkName: function chunkName() {
     return 'src/containers/About';
@@ -2210,7 +2285,7 @@ var t_6 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/Company',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 14)), (0, _importCss3.default)('src/containers/Company', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 16)), (0, _importCss3.default)('src/containers/Company', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2220,7 +2295,7 @@ var t_6 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/Company');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(14);
+    return /*require.resolve*/(16);
   },
   chunkName: function chunkName() {
     return 'src/containers/Company';
@@ -2230,7 +2305,7 @@ var t_7 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/Companies',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 15)), (0, _importCss3.default)('src/containers/Companies', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 17)), (0, _importCss3.default)('src/containers/Companies', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2240,7 +2315,7 @@ var t_7 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/Companies');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(15);
+    return /*require.resolve*/(17);
   },
   chunkName: function chunkName() {
     return 'src/containers/Companies';
@@ -2250,7 +2325,7 @@ var t_8 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
   id: '../src/containers/404',
   file: '/Users/mike1pol/work/gh/piter-united/piter-united/dist/react-static-routes.js',
   load: function load() {
-    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 16)), (0, _importCss3.default)('src/containers/404', {
+    return Promise.all([new Promise(function(resolve) { resolve(); }).then(__webpack_require__.bind(null, 18)), (0, _importCss3.default)('src/containers/404', {
       disableWarnings: true
     })]).then(function (proms) {
       return proms[0];
@@ -2260,7 +2335,7 @@ var t_8 = (0, _reactUniversalComponent2.default)((0, _universalImport3.default)(
     return _path3.default.join(__dirname, '../src/containers/404');
   },
   resolve: function resolve() {
-    return /*require.resolve*/(16);
+    return /*require.resolve*/(18);
   },
   chunkName: function chunkName() {
     return 'src/containers/404';
@@ -2349,31 +2424,31 @@ exports.default = Routes;
 /* WEBPACK VAR INJECTION */}.call(exports, "/"))
 
 /***/ }),
-/* 22 */
+/* 24 */
 /***/ (function(module, exports) {
 
 module.exports = require("path");
 
 /***/ }),
-/* 23 */
+/* 25 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-plugin-universal-import/importCss");
 
 /***/ }),
-/* 24 */
+/* 26 */
 /***/ (function(module, exports) {
 
 module.exports = require("babel-plugin-universal-import/universalImport");
 
 /***/ }),
-/* 25 */
+/* 27 */
 /***/ (function(module, exports) {
 
 module.exports = require("react-router-dom");
 
 /***/ }),
-/* 26 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2388,7 +2463,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _requireUniversalModule = __webpack_require__(27);
+var _requireUniversalModule = __webpack_require__(29);
 
 Object.defineProperty(exports, 'CHUNK_NAMES', {
   enumerable: true,
@@ -2403,7 +2478,7 @@ Object.defineProperty(exports, 'MODULE_IDS', {
   }
 });
 
-var _reportChunks = __webpack_require__(28);
+var _reportChunks = __webpack_require__(30);
 
 Object.defineProperty(exports, 'ReportChunks', {
   enumerable: true,
@@ -2420,7 +2495,7 @@ var _propTypes = __webpack_require__(6);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _hoistNonReactStatics = __webpack_require__(29);
+var _hoistNonReactStatics = __webpack_require__(31);
 
 var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
@@ -2715,7 +2790,7 @@ exports.default = universal;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
 /***/ }),
-/* 27 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2897,7 +2972,7 @@ var getConfig = function getConfig(isDynamic, universalConfig, options, props) {
 };
 
 /***/ }),
-/* 28 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2960,31 +3035,37 @@ ReportChunks.childContextTypes = {
 exports.default = ReportChunks;
 
 /***/ }),
-/* 29 */
+/* 31 */
 /***/ (function(module, exports) {
 
 module.exports = require("hoist-non-react-statics");
 
 /***/ }),
-/* 30 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/img.e1954899.png";
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/amount.3e07a299.png";
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/participants.66345e8d.png";
 
 /***/ }),
-/* 33 */
+/* 35 */
+/***/ (function(module, exports) {
+
+module.exports = require("graphql-tag");
+
+/***/ }),
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3002,7 +3083,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Text = function Text(_ref) {
   var text = _ref.text;
-
   return text.split('\n').map(function (item, key) {
     return _react2.default.createElement(
       'span',
@@ -3016,25 +3096,19 @@ var Text = function Text(_ref) {
 exports.default = Text;
 
 /***/ }),
-/* 34 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/img-white.e4ea1e05.png";
 
 /***/ }),
-/* 35 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/img-green.e7936c9f.png";
 
 /***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 37 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3044,13 +3118,70 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _apolloClient = __webpack_require__(38);
+var _react = __webpack_require__(0);
 
-var _apolloLinkHttp = __webpack_require__(39);
+var _react2 = _interopRequireDefault(_react);
 
-var _apolloCacheInmemory = __webpack_require__(40);
+var _dateFns = __webpack_require__(9);
 
-var _nodeFetch = __webpack_require__(41);
+var _ru = __webpack_require__(10);
+
+var _ru2 = _interopRequireDefault(_ru);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EventTime = function EventTime(_ref) {
+  var start = _ref.start,
+      end = _ref.end;
+
+  if ((0, _dateFns.isEqual)((0, _dateFns.format)(start, 'YYYY-MM-DD'), (0, _dateFns.format)(end, 'YYYY-MM-DD'))) {
+    return _react2.default.createElement(
+      'span',
+      null,
+      ' ',
+      (0, _dateFns.format)(start, 'dddd', { locale: _ru2.default }),
+      '\xA0c ',
+      (0, _dateFns.format)(start, 'HH:mm'),
+      ' \u0434\u043E ',
+      (0, _dateFns.format)(end, 'HH:mm')
+    );
+  }
+  return _react2.default.createElement(
+    'span',
+    null,
+    'c ',
+    (0, _dateFns.format)(start, 'HH:mm DD MMMM'),
+    ' \u0434\u043E ',
+    (0, _dateFns.format)(end, 'HH:mm DD MMMM YYYY')
+  );
+};
+
+exports.default = EventTime;
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _apolloClient = __webpack_require__(42);
+
+var _apolloLinkHttp = __webpack_require__(43);
+
+var _apolloCacheInmemory = __webpack_require__(44);
+
+var _nodeFetch = __webpack_require__(45);
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
@@ -3067,31 +3198,31 @@ var client = new _apolloClient.ApolloClient({
 exports.default = client;
 
 /***/ }),
-/* 38 */
+/* 42 */
 /***/ (function(module, exports) {
 
 module.exports = require("apollo-client");
 
 /***/ }),
-/* 39 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = require("apollo-link-http");
 
 /***/ }),
-/* 40 */
+/* 44 */
 /***/ (function(module, exports) {
 
 module.exports = require("apollo-cache-inmemory");
 
 /***/ }),
-/* 41 */
+/* 45 */
 /***/ (function(module, exports) {
 
 module.exports = require("node-fetch");
 
 /***/ }),
-/* 42 */
+/* 46 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -3099,4 +3230,4 @@ module.exports = require("node-fetch");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.3e37341f.js.map
+//# sourceMappingURL=static.09589030.js.map
