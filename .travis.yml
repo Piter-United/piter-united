@@ -8,17 +8,13 @@ cache:
   directories:
     - "node_modules"
 
+before_install:
+  - echo -e "machine github.com\n  login mike1pol\n  password $GITHUB_TOKEN" >> ~/.netrc
+
 script:
   - npm run build
-  - ls -al dist
 
-deploy:
-  provider: pages
-  local-dir: dist/
-  keep-history: true
-  fqdn: pu.piterjs.org
-  skip-cleanup: false
-  verbose: true
-  github-token: $GITHUB_TOKEN
-  on:
-    branch: master
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then
+    npm run publish;
+    fi
