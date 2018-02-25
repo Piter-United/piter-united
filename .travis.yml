@@ -7,10 +7,10 @@ node_js: "8"
 cache:
   directories:
     - "node_modules"
-    - "dist"
 
 script:
   - npm run build
+  - ls -al dist
 
 deploy:
   provider: pages
