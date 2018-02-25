@@ -13,18 +13,20 @@ const PartnersList = ({ list }) =>
 
 
 const shareBtns = event => {
-  document.title = event.name
-  setTimeout(() => {
-    const el = document.getElementById('my-share')
-    window.Ya.share2(el, {
-      content: {
-        url: location.href,
-        title: event.name,
-        description: event.name,
-        image: 'http://piter-united.ru/img/red/itgm_logo.png',
-      },
-    })
-  }, 1000)
+  if (document) {
+    document.title = event.name
+    setTimeout(() => {
+      const el = document.getElementById('my-share')
+      window.Ya.share2(el, {
+        content: {
+          url: location.href,
+          title: event.name,
+          description: event.name,
+          image: 'http://piter-united.ru/img/red/itgm_logo.png',
+        },
+      })
+    }, 1000)
+  }
 }
 
 export default withRouteData(({ event }) => {
