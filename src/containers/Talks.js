@@ -174,7 +174,7 @@ const BackBtn = event => ([
   </div>])
 
 export default withRouteData(({ event }) => (
-  <Layout buttons={BackBtn(event)}>
+  <Layout buttons={BackBtn(event)} classes={['programm-list']}>
     <div className="container programm-list">
       <span className="programm-title">Программа</span>
       <Talks id={event.id} />

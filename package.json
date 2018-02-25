@@ -7,7 +7,8 @@
     "start": "react-static start",
     "lint": "eslint .",
     "stage": "react-static build --staging",
-    "build": "react-static build && rm -Rf .git/tmp &&  mkdir .git/tmp && cp -r dist/ .git/tmp && git checkout gh-pages && rm -Rf * && cp -r .git/tmp/ . && rm -Rf .git/tmp",
+    "build": "react-static build",
+    "publish": "rm -Rf .git/tmp && mkdir .git/tmp && cp -r dist/ .git/tmp && cp CNAME .git/tmp && git checkout gh-pages && rm -Rf * && cp -r .git/tmp/ . && rm -Rf .git/tmp && git add . && git commit -am 'build' && git push origin gh-pages",
     "serve": "serve dist -p 3000"
   },
   "dependencies": {
