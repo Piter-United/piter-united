@@ -14,7 +14,7 @@ script:
 
 deploy:
   provider: pages
-  local-dir: ./dist/
+  local-dir: dist
   keep-history: true
   skip-cleanup: false
   verbose: true
