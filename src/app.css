@@ -9,6 +9,13 @@ body{
 	font-family: GothamPro;
 }
 
+.pt-20{
+  padding-top: 20px;
+}
+.pb-20{
+  padding-bottom: 20px;
+}
+
 /* Navigation */
 
 .navigation{

@@ -29,29 +29,31 @@ export class Redir extends React.Component {
 
 export default withRouteData(({ event, communities }) => (
   <Layout>
-    {event && <h1 style={{ marginTop: '20px' }}>Next event: <Link to={`/event/${event.id}`}>{event.name}</Link></h1>}
-    <h2>Community list</h2>
-    <Redir id={event.id} />
-    <div style={{
-      display: 'flex',
-      flexDirection: 'row' }}
-    >
-      {communities.map(({ id, name, site, description, logo }) => (
-        <div
-          key={id}
-          className="card"
-          style={{
-            width: '18rem',
-            marginRight: '5px',
-            marginLeft: '5px',
-            marginBottom: '5px' }}
-        >
-          <img className="card-img-top" src={logo.url} alt={name} />
-          <div className="card-body">
-            <h5 className="cart-title"><a href={site} target="blank">{name}</a></h5>
-            {description && <p className="card-text">{description}</p>}
+    <div className="container pt-20">
+      {event && <h1 style={{ marginTop: '20px' }}>Next event: <Link to={`/event/${event.id}`}>{event.name}</Link></h1>}
+      <h2>Community list</h2>
+      <Redir id={event.id} />
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row' }}
+      >
+        {communities.map(({ id, name, site, description, logo }) => (
+          <div
+            key={id}
+            className="card"
+            style={{
+              width: '18rem',
+              marginRight: '5px',
+              marginLeft: '5px',
+              marginBottom: '5px' }}
+          >
+            <img className="card-img-top" src={logo.url} alt={name} />
+            <div className="card-body">
+              <h5 className="cart-title"><a href={site} target="blank">{name}</a></h5>
+              {description && <p className="card-text">{description}</p>}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </Layout>))
