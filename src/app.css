@@ -1,0 +1,396 @@
+@font-face {
+  font-family: GothamPro;
+  src: url(../public/font/GothaProReg.otf);
+}
+
+body{
+	font-size: 16px;
+	color: #353B50;
+	font-family: GothamPro;
+}
+
+/* Navigation */
+
+.navigation{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 20px 5%;
+}
+
+.logo{
+	font-size: 24px;
+}
+
+/* Event Info */
+
+.event-info{
+	padding-top: 100px;
+	text-align: center;
+}
+
+.event-title{
+	font-size: 42px;
+	font-weight: 600;
+}
+
+.event-desc{
+	font-size: 21px;
+}
+
+.razd{
+	margin-left: auto;
+	margin-right: auto;
+	width: 64px;
+	border-top: 4px solid #353B50;
+	margin-bottom: 48px;
+	margin-top: 48px;
+}
+
+.event-date{
+	font-size: 32px;
+	font-weight: 600;
+}
+
+.event-place{
+	display: block;
+
+}
+.event-time{
+	display: block;
+}
+
+button.reg-button-primary{
+	width: 260px;
+	margin-top: 24px;
+	margin-bottom: 0px;
+	padding: 16px 64px;
+	font-weight: 600;
+	text-transform: uppercase;
+	background-color: #353B50;
+}
+
+a.programm-button{
+	width: 260px;
+	margin-top: 16px;
+	margin-bottom: 0px;
+	padding: 16px 64px;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: #353B50;
+	border: 2px dotted #353B50;
+}
+
+a.programm-button:hover{
+	color: #fafafa;
+	background-color: #353B50;
+}
+
+
+.event-programm{
+	font-size: 21px;
+	border-bottom: 2px dotted #353B50;
+	color: #353B50;
+	padding-left: 0px;
+	padding-right: 0px;
+	border-radius: 0px;
+	padding-bottom: 0px;
+	margin-top: 24px;
+}
+
+/* Partners */
+
+.event-partners{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	padding: 0px 0px;
+	text-align: center;
+	display: flex;
+	background-color: transparent;
+	justify-content: center;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.event-partners-title{
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-bottom: 0px;
+	font-weight: 600;
+}
+
+.event-paretners-desc{
+	font-size: 12px;
+	border-bottom: 2px dotted #353B50;
+	color: #353B50;
+	padding: 0px;
+	border-radius: 0px;
+}
+
+.partners-title{
+	font-size: 21px;
+	font-weight: 600;
+}
+
+.partner-logo{
+	display: inline-block;
+	margin-bottom: 16px;
+}
+
+.partner-logo img{
+	height: 32px;
+	margin: 0px 32px;
+}
+
+.partner-logo.new{
+	padding: 12px 24px;
+	border-radius: 8px;
+	border: 2px dotted #00A984;
+}
+
+.partner-logo.new:hover{
+	background-color: rgba(0,169,132,0.2);
+}
+
+a.new-partner{
+	text-decoration: none;
+	color: #00A984;
+}
+
+/* Programm Page */
+
+.back{
+	padding-top: 24px;
+}
+
+.back-button{
+	padding: 12px 24px;
+}
+
+.event-badge{
+	padding-bottom: 24px;
+	margin-bottom: 48px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	border-bottom: 4px solid #353B50;
+}
+
+.badge-text{
+	padding-top: 24px;
+}
+
+.badge-title{
+	font-size: 24px;
+	font-weight: 600;
+}
+
+a.reg-button-badge{
+	display: inline;
+	width: 260px;
+	margin-top: 24px;
+	margin-bottom: 0px;
+	padding: 16px 32px;
+	font-weight: 600;
+	text-transform: uppercase;
+	background-color: #353B50;
+	color: white !important;
+	text-decoration: none;
+}
+
+.programm-title{
+	font-size: 24px;
+}
+
+.programm-list .card{
+	border: none;
+}
+
+.programm-list .card-header{
+	border-bottom: none;
+	background-color: transparent;
+	padding-left: 0px;
+}
+
+.programm-list .card-body{
+	padding-left: 0px;
+}
+
+button.programm-item{
+	width: 100%;
+	padding-left: 12px;
+	font-size: 21px;
+	color: #353B50;
+	background-color: transparent;
+	text-align: left;
+}
+
+button.programm-item:hover {
+	box-shadow: none;
+	background-color: #fafafa;
+}
+
+
+button.programm-item:focus {
+	box-shadow: none;
+	background-color: #fafafa;
+}
+
+.programm-item-title {
+	padding-left: 12px;
+}
+
+.theme-timing {
+	width: 150px;
+}
+
+.theme-title {
+	display: block;
+	font-weight: 600;
+}
+
+.theme-desc {
+	display: block;
+}
+
+.theme-speaker {
+	display: inline-block;
+	margin-top: 12px;
+	font-weight: 600;
+}
+
+.theme-speaker {
+	display: inline-block;
+	margin-top: 12px;
+	font-weight: normal;
+}
+
+
+.malina-left {
+	position: absolute;
+	left: -9%;
+	top: -3%;
+  z-index: -1;
+}
+
+/* Background Styles */
+
+.background-green{
+	position: absolute;
+	top: 10%;
+	left: 5%;
+	bottom: 25%;
+	right: 5%;
+	background-color: rgba(0,169,132,0.2);
+	z-index: -2;
+	border-radius: 8px;
+}
+
+.logo-itgm-left-first{
+	position: absolute;
+	top: 10%;
+	left: -5%;
+	z-index: -1;
+}
+
+.logo-itgm-left-second{
+	position: absolute;
+	left: 20%;
+	bottom: 40%;
+	z-index: -1;
+}
+
+.logo-itgm-right-first{
+	position: absolute;
+	top: 10%;
+	right: 0%;
+	z-index: -1;
+}
+
+.logo-itgm-right-second{
+	position: absolute;
+	bottom: 30%;
+	right: 20%;
+	z-index: -1;
+}
+
+/* Partners Page */
+
+.event-about{
+	margin-top: 64px;
+	margin-bottom: 24px;
+}
+
+.partners-title-1{
+	display: block;
+	font-size: 21px;
+	font-weight: 600;
+}
+
+.itgm-video{
+	background-color: rgba(0,169,132,0.2);
+}
+
+.razd-left{
+	display: inline-block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 64px;
+	border-top: 4px solid #353B50;
+	margin-bottom: 16px;
+	margin-top: 16px;
+}
+
+.footer{
+	height: 200px;
+}
+
+ul.itgm-links a{
+	text-decoration: none;
+	color: #353B50;
+}
+
+ul.itgm-links li:hover{
+	background-color: rgba(0,169,132,0.05);
+}
+
+.table td.package,th.package{
+	text-align: center !important;
+	width: 100px;
+}
+
+.table tr.focus{
+	background-color: rgba(0,169,132,0.2);
+}
+
+.contact{
+	display: block;
+	text-transform: none;
+	text-decoration: none;
+	color: #353B50;
+	font-size: 21px;
+}
+
+a.itgm-styled-link{
+	color: #00953A;
+	border-bottom: 1px dotted #00953A;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.share{
+  display: flex;
+  flex-direction: row;
+}
+.slack{
+  border-width: 0px;
+  width: 108px;
+  height: 27px;
+  visibility: visible;
+  margin-top: 2px;
+  margin-left: 5px;
+}
