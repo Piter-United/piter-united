@@ -12,5 +12,12 @@ cache:
 script:
   - npm run build
 
-after_success:
-  - npm run publish
+deploy:
+  provider: pages
+  local-dir: ./dist/
+  keep-history: true
+  skip-cleanup: false
+  verbose: true
+  github-token: $GITHUB_TOKEN
+  on:
+    branch: master
