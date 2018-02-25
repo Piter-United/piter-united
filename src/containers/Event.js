@@ -13,7 +13,7 @@ const PartnersList = ({ list }) =>
 
 
 const shareBtns = event => {
-  if (document) {
+  if (typeof document !== 'undefined') {
     document.title = event.name
     setTimeout(() => {
       const el = document.getElementById('my-share')
