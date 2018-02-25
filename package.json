@@ -1,5 +1,5 @@
 {
-  "name": "react-static-example-apollo-redux",
+  "name": "piter-united",
   "version": "1.0.1",
   "main": "index.js",
   "license": "MIT",
@@ -7,7 +7,7 @@
     "start": "react-static start",
     "lint": "eslint .",
     "stage": "react-static build --staging",
-    "build": "react-static build",
+    "build": "react-static build && rm -Rf .git/tmp &&  mkdir .git/tmp && cp -r dist/ .git/tmp && git checkout gh-pages && rm -Rf * && mv -r .git/tmp/ . && rm -Rf .git/tmp",
     "serve": "serve dist -p 3000"
   },
   "dependencies": {

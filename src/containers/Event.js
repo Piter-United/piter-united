@@ -13,7 +13,7 @@ const PartnersList = ({ list }) =>
 
 
 const shareBtns = event => {
-  window.document.title = event.name
+  document.title = event.name
   setTimeout(() => {
     const el = document.getElementById('my-share')
     window.Ya.share2(el, {
