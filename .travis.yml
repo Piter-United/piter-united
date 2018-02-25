@@ -14,8 +14,9 @@ script:
 
 deploy:
   provider: pages
-  local-dir: dist
+  local-dir: dist/
   keep-history: true
+  fqdn: pu.piterjs.org
   skip-cleanup: false
   verbose: true
   github-token: $GITHUB_TOKEN
