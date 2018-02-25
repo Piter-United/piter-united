@@ -1,10 +1,10 @@
 #!/bin/bash
 echo "Fetch all"
-git fetch --all
-echo "Reset current branch"
-git reset --hard
+git fetch origin gh-pages
 echo "Remote branch"
 git branch -r
+echo "Reset current branch"
+git reset --hard
 echo "remove tmp"
 rm -Rf .git/tmp
 echo "create tmp"
