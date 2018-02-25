@@ -51,7 +51,7 @@ query {
   allEvents {
     ${eventInfo}
   }
-  Event(id: "cje04rb735oce0132m5qyv78a") {
+  Event(id: "cje306m4g69or0132wphzlzqm") {
     ${eventInfo}
   }
   allCommunities {
