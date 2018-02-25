@@ -142,11 +142,7 @@ var Layout = function Layout(_ref2) {
         _react2.default.createElement(Btn, { to: '/about', text: 'About' })
       )
     ),
-    _react2.default.createElement(
-      'div',
-      { className: 'container' },
-      children
-    )
+    children
   );
 };
 
@@ -1550,7 +1546,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref5) {
   var event = _ref5.event;
   return _react2.default.createElement(
     _Layout2.default,
-    { buttons: BackBtn(event) },
+    { buttons: BackBtn(event), classes: ['programm-list'] },
     _react2.default.createElement(
       'div',
       { className: 'container programm-list' },
@@ -3230,4 +3226,4 @@ module.exports = require("node-fetch");
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.09589030.js.map
+//# sourceMappingURL=static.f5f15390.js.map
