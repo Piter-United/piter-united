@@ -1,20 +1,13 @@
 import React from 'react'
-import { withRouteData, Link } from 'react-static'
+import { withRouteData } from 'react-static'
 
 import Layout from '../components/Layout'
+import EventsList from '../components/EventsList'
 
 export default withRouteData(({ events }) => (
   <Layout>
     <div className="container pt-20">
-      <h1>Events list</h1>
-      <br />
-      <ul>
-        {events.map(({ id, name }) => (
-          <li key={id}>
-            <Link to={`/event/${id}/`}>{name}</Link>
-          </li>
-        ))}
-      </ul>
+      <EventsList events={events} />
     </div>
   </Layout>
 ))

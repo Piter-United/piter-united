@@ -4,7 +4,7 @@ import React from 'react'
 import query from './query'
 
 export default {
-  siteRoot: 'http://pu.piterjs.org',
+  siteRoot: 'http://piter-united.ru',
   getSiteData: () => ({
     title: 'Piter United',
     lastBuilt: Date.now(),

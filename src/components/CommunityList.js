@@ -21,8 +21,7 @@ query {
       url
     }
   }
-}
-`
+}`
 
 export default class CommunityList extends React.Component {
   constructor(props) {
@@ -38,7 +37,10 @@ export default class CommunityList extends React.Component {
       .then(({ data: { allCommunities } }) => {
         this.setState({ list: allCommunities, loading: false })
       })
-      .catch(console.log)
+      .catch(err => {
+        this.setState({ loading: false })
+        console.log(err)
+      })
   }
 
   render() {

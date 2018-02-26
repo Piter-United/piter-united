@@ -37,7 +37,10 @@ const shareBtns = event => {
 export default class Event extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { event: props.event }
+    this.state = {
+      event: props.event,
+      loading: true,
+    }
   }
   componentWillMount() {
     const { event: { id } } = this.props
@@ -52,7 +55,10 @@ export default class Event extends React.Component {
       .then(({ data: { Event } }) => {
         this.setState({ event: Event })
       })
-      .catch(console.log)
+      .catch(err => {
+        this.setState({ loading: false })
+        console.log(err)
+      })
   }
   componentWillReceiveProps(props) {
     const { event } = props
