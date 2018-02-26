@@ -1,9 +1,21 @@
-# React-Static - Apollo Example
+# Piter-United
 
-This example is based on the most basic version of react-static available, and adds:
-
+- React Static
 - React Apollo
+- Graph.cool
 
-Apollo is only used at run time on the client side. Component are statically  rendered in the "loading" state. They then load the query result on client after loading.
+### Development
+```sh
+npm install
+npm start
+```
 
-To get started, run `react-static create` and use the `apollo` template.
+### Build
+```sh
+npm run build
+```
+
+### Publish by travis
+```sh
+npm run publish
+```
