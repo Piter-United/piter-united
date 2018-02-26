@@ -1,28 +1,26 @@
 #!/bin/bash
-echo "Reset current branch"
-git reset --hard
-echo "Show remote"
+echo "clone repo"
+git clone https://github.com/$TRAVIS_REPO_SLUG /tmp/repo
+cd /tmp/repo
+echo "show remote"
 git remote -v
-echo "Fetch all"
+echo "fetch all"
 git fetch origin gh-pages
-echo "Remote branch"
+echo "remote branch"
 git branch -r
-echo "remove tmp"
-rm -Rf .git/tmp
-echo "create tmp"
-mkdir .git/tmp
-echo "copy dist && CNAME"
-cp -r dist/ .git/tmp
-cp CNAME .git/tmp
 echo "checkout gh-pages"
-git checkout -b gh-pages origin/gh-pages
-echo "copy from tmp"
-cp -r .git/tmp/ .
-echo "rm tmp"
-rm -Rf .git/tmp
+git checkout gh-pages
+git branch
+echo "remove old files"
+rm -rf *
+echo "copy dist && CNAME"
+cp -r $TRAVIS_BUILD_DIR/dist/ .
+cp $TRAVIS_BUILD_DIR/CNAME .
 echo "add"
 git add .
 echo "commit"
 git commit -am 'build'
+echo "files list"
+ls -al
 echo "push"
 git push origin gh-pages

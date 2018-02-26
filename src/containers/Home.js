@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 
 import client from '../connectors/apollo'
 import Layout from '../components/Layout'
+import CommunityList from '../components/CommunityList'
 
 export class CurrentEvent extends React.Component {
   constructor() {
@@ -70,25 +71,6 @@ export default withRouteData(({ communities }) => (
   <Layout>
     <div className="container pt-20">
       <CurrentEvent />
-      <h2>Community list</h2>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
-        {communities.map(({ id, name, site, description, logo }) => (
-          <div
-            key={id}
-            className="card"
-            style={{
-              width: '18rem',
-              marginRight: '5px',
-              marginLeft: '5px',
-              marginBottom: '5px' }}
-          >
-            <img className="card-img-top" src={logo.url} alt={name} />
-            <div className="card-body">
-              <h5 className="cart-title"><a href={site} target="blank">{name}</a></h5>
-              {description && <p className="card-text">{description}</p>}
-            </div>
-          </div>
-        ))}
-      </div>
+      <CommunityList communities={communities} />
     </div>
   </Layout>))
