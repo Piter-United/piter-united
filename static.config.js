@@ -34,6 +34,7 @@ export default {
           allCompanies: companies,
           allEvents: events,
           allCommunities: communities,
+          allSpeakers: speakers,
         },
         errors,
       },
@@ -89,6 +90,16 @@ export default {
       {
         path: '/about',
         component: 'src/containers/About',
+      },
+      {
+        path: 'speaker',
+        component: 'src/containers/Speakers',
+        getData: () => ({ speakers }),
+        children: speakers.map(speaker => ({
+          path: speaker.id,
+          component: 'src/containers/Speaker',
+          getData: () => ({ speaker }),
+        })),
       },
       {
         path: '/company',

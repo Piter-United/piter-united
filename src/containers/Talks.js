@@ -82,7 +82,6 @@ class CommunityList extends React.Component {
     super(props)
     this.state = {
       opened: [],
-
       loading: true,
       error: null,
       community: {},

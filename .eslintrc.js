@@ -3,5 +3,6 @@ module.exports = {
   rules: {
     'react/no-array-index-key': 0,
     'space-before-function-paren': 0,
+    'class-methods-use-this': 0,
   }
 }

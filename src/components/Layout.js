@@ -16,7 +16,7 @@ const Layout = ({ buttons, children }) =>
       {!buttons && <div className="back">
         <Btn to="/" text="Home" />
         <Btn to="/event" text="Events" />
-        {/* <Btn to="/speaker" text="Speakers" /> */}
+        <Btn to="/speaker" text="Speakers" />
         <Btn to="/company" text="Companies" />
         <Btn to="/about" text="About" />
       </div>}

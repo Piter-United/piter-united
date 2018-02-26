@@ -12,7 +12,7 @@ query {
   }
 }`
 
-export default class Events extends React.Component {
+export default class EventList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {

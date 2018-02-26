@@ -51,6 +51,37 @@ query {
   allEvents(orderBy: date_DESC) {
     ${eventInfo}
   }
+  allSpeakers {
+    id
+    name
+    social
+    company {
+      id
+      name
+    }
+    talks {
+      id
+      subject
+      description
+      event {
+        id
+        name
+      }
+      speakers {
+        id
+        name
+      }
+      community {
+        id
+        name
+      }
+    }
+    community {
+      id
+      name
+      site
+    }
+  }
   allCommunities {
     id
     name

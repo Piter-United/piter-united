@@ -2,12 +2,12 @@ import React from 'react'
 import { withRouteData } from 'react-static'
 
 import Layout from '../components/Layout'
-import EventList from '../components/EventList'
+import SpeakerList from '../components/SpeakerList'
 
-export default withRouteData(({ events }) => (
+export default withRouteData(({ speakers }) => (
   <Layout>
     <div className="container pt-20">
-      <EventList events={events} />
+      <SpeakerList speakers={speakers} />
     </div>
   </Layout>
 ))
