@@ -14,7 +14,7 @@ git branch
 echo "remove old files"
 rm -rf *
 echo "copy dist && CNAME"
-cp -r $TRAVIS_BUILD_DIR/dist/ .
+cp -r $TRAVIS_BUILD_DIR/dist/* .
 cp $TRAVIS_BUILD_DIR/CNAME .
 echo "add"
 git add .
