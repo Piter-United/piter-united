@@ -41,7 +41,7 @@ query {
           window.redirected = true
         }, 1200)
         this.setState({ redirect: true })
-      }, 5000)
+      }, 500)
       setTimeout(() => this.setState({ int }), 100)
     }
   }

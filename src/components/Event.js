@@ -26,7 +26,7 @@ const shareBtns = event => {
           url: location.href,
           title: event.name,
           description: event.name,
-          image: 'http://piter-united.ru/img/red/itgm_logo.png',
+          image: (event.logo && event.logo.url) ? event.logo.url : null,
         },
       })
     }, 1000)
@@ -50,10 +50,10 @@ export default class Event extends React.Component {
         ${eventInfo}
       }
     }`
-    shareBtns(this.props.event)
     client.query({ query })
       .then(({ data: { Event } }) => {
         this.setState({ event: Event })
+        shareBtns(Event || this.props.event)
       })
       .catch(err => {
         this.setState({ loading: false })
@@ -76,9 +76,9 @@ export default class Event extends React.Component {
       event.infoPartners)
 
     return (
-      <div className="background">
+      <div className="event">
         <div className="container-fluid navigation">
-          <span className="logo"><Link to="/">Piter United</Link></span>
+          <span className="logo">Piter United</span>
           <div className="share">
             <div
               id="my-share"
@@ -89,7 +89,19 @@ export default class Event extends React.Component {
             <iframe title="Slack" src="https://piter-united.herokuapp.com/iframe" className="__slackin slack" />
           </div>
         </div>
-        <div className="container event-info">
+        <div className="container event-info background-green">
+          <div className="logo-itgm-left-first d-none d-lg-block">
+            <img alt="" src={imgWhite} style={{ width: '300px' }} />
+          </div>
+          <div className="logo-itgm-left-second d-none d-lg-block">
+            <img alt="" src={imgWhite} style={{ width: '150px' }} />
+          </div>
+          <div className="logo-itgm-right-first d-none d-lg-block">
+            <img alt="" src={imgGreen} style={{ width: '200px' }} />
+          </div>
+          <div className="logo-itgm-right-second d-none d-lg-block">
+            <img alt="" src={imgGreen} style={{ width: '150px' }} />
+          </div>
           <h1 className="event-title">{event.name}</h1>
           <span className="event-desc">Слет IT-сообществ Петербурга</span>
           <dir className="razd" />
@@ -108,21 +120,6 @@ export default class Event extends React.Component {
           <div className="partner-logo new">
             <Link to={`/event/${event.id}/partner`} className="btn active new-partner" role="button" aria-pressed="true"> Стать партнером</Link>
           </div>
-        </div>
-        <div className="background-green d-none d-lg-block">
-          <span>&nbsp;</span>
-        </div>
-        <div className="logo-itgm-left-first d-none d-lg-block">
-          <img alt="" src={imgWhite} style={{ width: '300px' }} />
-        </div>
-        <div className="logo-itgm-left-second d-none d-lg-block">
-          <img alt="" src={imgWhite} style={{ width: '150px' }} />
-        </div>
-        <div className="logo-itgm-right-first d-none d-lg-block">
-          <img alt="" src={imgGreen} style={{ width: '200px' }} />
-        </div>
-        <div className="logo-itgm-right-second d-none d-lg-block">
-          <img alt="" src={imgGreen} style={{ width: '150px' }} />
         </div>
       </div>
     )

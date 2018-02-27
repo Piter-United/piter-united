@@ -5,6 +5,9 @@ date
 dateEnd
 address
 photos
+logo {
+  url
+}
 video
 template
 timepadId

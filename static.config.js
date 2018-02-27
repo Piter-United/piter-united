@@ -18,8 +18,8 @@ export default {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <Body>{children}</Body>
-      <script src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" />
-      <script src="//yastatic.net/share2/share.js" />
+      <script src="https://yastatic.net/es5-shims/0.0.2/es5-shims.min.js" />
+      <script src="https://yastatic.net/share2/share.js" />
     </Html>
   ),
   getRoutes: async () => {

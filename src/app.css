@@ -35,6 +35,7 @@ body{
 
 .event-info{
 	padding-top: 100px;
+  position: relative;
 	text-align: center;
 }
 
@@ -110,9 +111,7 @@ a.programm-button:hover{
 /* Partners */
 
 .event-partners{
-	position: absolute;
-	bottom: 0;
-	left: 0;
+  margin-top: auto;
 	padding: 0px 0px;
 	text-align: center;
 	display: flex;
@@ -287,42 +286,42 @@ button.programm-item:focus {
 /* Background Styles */
 
 .background-green{
-	position: absolute;
-	top: 10%;
-	left: 5%;
-	bottom: 25%;
-	right: 5%;
+  padding-bottom: 40px;
+  margin-bottom: 40px;
 	background-color: rgba(0,169,132,0.2);
-	z-index: -2;
 	border-radius: 8px;
+}
+
+.event > *{
+  position: relative;
 }
 
 .logo-itgm-left-first{
 	position: absolute;
-	top: 10%;
-	left: -5%;
-	z-index: -1;
+	top: 20px;
+	left: -18%;
+	z-index: 0;
 }
 
 .logo-itgm-left-second{
 	position: absolute;
 	left: 20%;
-	bottom: 40%;
-	z-index: -1;
+	bottom: 15%;
+	z-index: 0;
 }
 
 .logo-itgm-right-first{
 	position: absolute;
-	top: 10%;
-	right: 0%;
-	z-index: -1;
+	top: 20px;
+	right: -5%;
+	z-index: 0;
 }
 
 .logo-itgm-right-second{
 	position: absolute;
-	bottom: 30%;
-	right: 20%;
-	z-index: -1;
+	bottom: 5%;
+	right: 10%;
+	z-index: 0;
 }
 
 /* Partners Page */
@@ -400,4 +399,13 @@ a.itgm-styled-link{
   visibility: visible;
   margin-top: 2px;
   margin-left: 5px;
+}
+
+
+.event {
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
