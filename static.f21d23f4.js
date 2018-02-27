@@ -3307,7 +3307,7 @@ var CurrentEvent = function (_React$Component) {
             window.redirected = true;
           }, 1200);
           _this3.setState({ redirect: true });
-        }, 5000);
+        }, 500);
         setTimeout(function () {
           return _this3.setState({ int: _int });
         }, 100);
@@ -3478,7 +3478,7 @@ var shareBtns = function shareBtns(event) {
           url: location.href,
           title: event.name,
           description: event.name,
-          image: 'http://piter-united.ru/img/red/itgm_logo.png'
+          image: event.logo && event.logo.url ? event.logo.url : null
         }
       });
     }, 1000);
@@ -3508,11 +3508,11 @@ var Event = function (_React$Component) {
       var id = this.props.event.id;
 
       var query = (0, _graphqlTag2.default)(_templateObject, id, _query.eventInfo);
-      shareBtns(this.props.event);
       _apollo2.default.query({ query: query }).then(function (_ref3) {
         var Event = _ref3.data.Event;
 
         _this2.setState({ event: Event });
+        shareBtns(Event || _this2.props.event);
       }).catch(function (err) {
         _this2.setState({ loading: false });
         console.log(err);
@@ -3537,18 +3537,14 @@ var Event = function (_React$Component) {
 
       return _react2.default.createElement(
         'div',
-        { className: 'background' },
+        { className: 'event' },
         _react2.default.createElement(
           'div',
           { className: 'container-fluid navigation' },
           _react2.default.createElement(
             'span',
             { className: 'logo' },
-            _react2.default.createElement(
-              _reactStatic.Link,
-              { to: '/' },
-              'Piter United'
-            )
+            'Piter United'
           ),
           _react2.default.createElement(
             'div',
@@ -3564,7 +3560,27 @@ var Event = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'container event-info' },
+          { className: 'container event-info background-green' },
+          _react2.default.createElement(
+            'div',
+            { className: 'logo-itgm-left-first d-none d-lg-block' },
+            _react2.default.createElement('img', { alt: '', src: _imgWhite2.default, style: { width: '300px' } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'logo-itgm-left-second d-none d-lg-block' },
+            _react2.default.createElement('img', { alt: '', src: _imgWhite2.default, style: { width: '150px' } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'logo-itgm-right-first d-none d-lg-block' },
+            _react2.default.createElement('img', { alt: '', src: _imgGreen2.default, style: { width: '200px' } })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'logo-itgm-right-second d-none d-lg-block' },
+            _react2.default.createElement('img', { alt: '', src: _imgGreen2.default, style: { width: '150px' } })
+          ),
           _react2.default.createElement(
             'h1',
             { className: 'event-title' },
@@ -3627,35 +3643,6 @@ var Event = function (_React$Component) {
               ' \u0421\u0442\u0430\u0442\u044C \u043F\u0430\u0440\u0442\u043D\u0435\u0440\u043E\u043C'
             )
           )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'background-green d-none d-lg-block' },
-          _react2.default.createElement(
-            'span',
-            null,
-            '\xA0'
-          )
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'logo-itgm-left-first d-none d-lg-block' },
-          _react2.default.createElement('img', { alt: '', src: _imgWhite2.default, style: { width: '300px' } })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'logo-itgm-left-second d-none d-lg-block' },
-          _react2.default.createElement('img', { alt: '', src: _imgWhite2.default, style: { width: '150px' } })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'logo-itgm-right-first d-none d-lg-block' },
-          _react2.default.createElement('img', { alt: '', src: _imgGreen2.default, style: { width: '200px' } })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'logo-itgm-right-second d-none d-lg-block' },
-          _react2.default.createElement('img', { alt: '', src: _imgGreen2.default, style: { width: '150px' } })
         )
       );
     }
@@ -3676,7 +3663,7 @@ exports.default = Event;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var eventInfo = exports.eventInfo = "\nid\nname\ndate\ndateEnd\naddress\nphotos\nvideo\ntemplate\ntimepadId\nregistration\nprogram {\n  time\n  title\n}\ngoldPartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}\nsilverPartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}\nbronzePartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}\ninfoPartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}";
+var eventInfo = exports.eventInfo = "\nid\nname\ndate\ndateEnd\naddress\nphotos\nlogo {\n  url\n}\nvideo\ntemplate\ntimepadId\nregistration\nprogram {\n  time\n  title\n}\ngoldPartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}\nsilverPartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}\nbronzePartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}\ninfoPartners {\n  id\n  name\n  site\n  logo {\n    url\n  }\n}";
 
 var query = "\nquery {\n  allEvents(orderBy: date_DESC) {\n    " + eventInfo + "\n  }\n  allSpeakers {\n    id\n    name\n    social\n    company {\n      id\n      name\n    }\n    talks {\n      id\n      subject\n      description\n      event {\n        id\n        name\n      }\n      speakers {\n        id\n        name\n      }\n      community {\n        id\n        name\n      }\n    }\n    community {\n      id\n      name\n      site\n    }\n  }\n  allCommunities {\n    id\n    name\n    description\n    site\n    logo {\n      url\n    }\n  }\n  allCompanies {\n    id\n    name\n    site\n    description\n    speakers {\n      id\n      name\n      photo { url }\n    }\n    logo { url }\n    asGold {\n      id\n      name\n      date\n      dateEnd\n    }\n    asSilver {\n      id\n      name\n      date\n      dateEnd\n    }\n    asBronze {\n      id\n      name\n      date\n      dateEnd\n    }\n    asInfo {\n      id\n      name\n      date\n      dateEnd\n    }\n  }\n}";
 
@@ -4355,4 +4342,4 @@ exports.default = SpeakerList;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.70a48d20.js.map
+//# sourceMappingURL=static.f21d23f4.js.map
