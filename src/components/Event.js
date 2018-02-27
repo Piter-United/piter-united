@@ -89,7 +89,7 @@ export default class Event extends React.Component {
             <iframe title="Slack" src="https://piter-united.herokuapp.com/iframe" className="__slackin slack" />
           </div>
         </div>
-        <div className="container event-info background-green">
+        <div className="container-fluid event-info background-green">
           <div className="logo-itgm-left-first d-none d-lg-block">
             <img alt="" src={imgWhite} style={{ width: '300px' }} />
           </div>

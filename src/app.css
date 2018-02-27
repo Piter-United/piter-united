@@ -34,8 +34,10 @@ body{
 /* Event Info */
 
 .event-info{
-	padding-top: 100px;
   position: relative;
+	padding-top: 100px;
+  margin: 0 5%;
+  width: calc(100% - 10%);
 	text-align: center;
 }
 
@@ -299,7 +301,7 @@ button.programm-item:focus {
 .logo-itgm-left-first{
 	position: absolute;
 	top: 20px;
-	left: -18%;
+	left: -10%;
 	z-index: 0;
 }
 
