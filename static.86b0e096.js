@@ -3560,7 +3560,7 @@ var Event = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { className: 'container event-info background-green' },
+          { className: 'container-fluid event-info background-green' },
           _react2.default.createElement(
             'div',
             { className: 'logo-itgm-left-first d-none d-lg-block' },
@@ -4342,4 +4342,4 @@ exports.default = SpeakerList;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.f21d23f4.js.map
+//# sourceMappingURL=static.86b0e096.js.map
