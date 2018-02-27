@@ -4,10 +4,21 @@ import gql from 'graphql-tag'
 import client from '../connectors/apollo'
 
 const cardStyle = {
-  width: '18rem',
-  marginRight: '5px',
-  marginLeft: '5px',
-  marginBottom: '5px',
+  width: '300px',
+  maxWidth: '300px',
+  maxHeight: '300px',
+  height: '300px',
+  overflow: 'hidden',
+  marginBottom: '20px',
+  justifyContent: 'center',
+  alignItems: 'center',
+}
+
+const blockStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  flexWrap: 'wrap',
 }
 
 const query = gql`
@@ -48,14 +59,13 @@ export default class CommunityList extends React.Component {
     return (
       <div>
         <h1>Community list</h1>
-        <div style={{ display: 'flex', flexDirection: 'row' }}>
-          {list.map(({ id, name, site, description, logo }) => (
+        <div style={blockStyle}>
+          {list.map(({ id, name, site, logo }) => (
             <div key={id} className="card" style={cardStyle}>
-              {logo && <img className="card-img-top" src={logo.url} alt={name} />}
-              <div className="card-body">
-                <h5 className="card-title"><a href={site} target="_blank">{name}</a></h5>
-                {description && <p className="card-text">{description}</p>}
-              </div>
+              <a target="_blank" href={site}>
+                {logo && <img src={logo.url} style={{ maxWidth: '300px', maxHeight: '300px'}} alt={name} />}
+                {!logo && <h5 className="card-title">{name}</h5>}
+              </a>
             </div>))}
         </div>
         {loading && <span>loading...</span>}

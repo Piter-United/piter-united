@@ -242,7 +242,7 @@ export default withRouteData(({ event }) => (
       <div className="event-badge">
         <div className="badge-text">
           <span className="badge-title">{event.name}</span><br />
-          <span className="badge-desc">{event.date}, {event.address}</span>
+          <span className="badge-desc"><EventDate start={event.date} end={event.dateEnd} />, {event.address}</span>
         </div>
         <a href="mailto:piterunited@gmail.com" role="button" className="btn btn-dark reg-button-badge">стать партнером</a>
       </div>
