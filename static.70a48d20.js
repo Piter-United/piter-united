@@ -102,7 +102,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _img = __webpack_require__(41);
+var _img = __webpack_require__(37);
 
 var _img2 = _interopRequireDefault(_img);
 
@@ -166,13 +166,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _apolloClient = __webpack_require__(37);
+var _apolloClient = __webpack_require__(39);
 
-var _apolloLinkHttp = __webpack_require__(38);
+var _apolloLinkHttp = __webpack_require__(40);
 
-var _apolloCacheInmemory = __webpack_require__(39);
+var _apolloCacheInmemory = __webpack_require__(41);
 
-var _nodeFetch = __webpack_require__(40);
+var _nodeFetch = __webpack_require__(42);
 
 var _nodeFetch2 = _interopRequireDefault(_nodeFetch);
 
@@ -396,11 +396,6 @@ module.exports = require("prop-types");
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CurrentEvent = undefined;
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _templateObject = _taggedTemplateLiteral(['\nquery {\n  allEvents(\n    first: 1\n    orderBy: date_DESC\n  ) {\n    id\n    name\n    date\n  }\n}'], ['\nquery {\n  allEvents(\n    first: 1\n    orderBy: date_DESC\n  ) {\n    id\n    name\n    date\n  }\n}']);
 
 var _react = __webpack_require__(0);
 
@@ -408,125 +403,29 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _dateFns = __webpack_require__(6);
-
-var _graphqlTag = __webpack_require__(3);
-
-var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
-
-var _apollo = __webpack_require__(4);
-
-var _apollo2 = _interopRequireDefault(_apollo);
-
 var _Layout = __webpack_require__(2);
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _CommunityList = __webpack_require__(42);
+var _CommunityList = __webpack_require__(38);
 
 var _CommunityList2 = _interopRequireDefault(_CommunityList);
 
+var _CurrentEvent = __webpack_require__(43);
+
+var _CurrentEvent2 = _interopRequireDefault(_CurrentEvent);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var CurrentEvent = exports.CurrentEvent = function (_React$Component) {
-  _inherits(CurrentEvent, _React$Component);
-
-  function CurrentEvent() {
-    _classCallCheck(this, CurrentEvent);
-
-    var _this = _possibleConstructorReturn(this, (CurrentEvent.__proto__ || Object.getPrototypeOf(CurrentEvent)).call(this));
-
-    _this.state = { event: null };
-    return _this;
-  }
-
-  _createClass(CurrentEvent, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      var _this2 = this;
-
-      var query = (0, _graphqlTag2.default)(_templateObject);
-      _apollo2.default.query({ query: query }).then(function (_ref) {
-        var allEvents = _ref.data.allEvents;
-
-        var event = allEvents[0];
-        if (event && ((0, _dateFns.isFuture)(event.date) || (0, _dateFns.isToday)(event.date))) {
-          _this2.setState({ event: event });
-        }
-      }).catch(console.log);
-    }
-  }, {
-    key: 'componentWillUpdate',
-    value: function componentWillUpdate(np, ns) {
-      var _this3 = this;
-
-      var event = ns.event,
-          int = ns.int;
-
-      if (event && event.id && !window.redirected && !int) {
-        var _int = setInterval(function () {
-          clearInterval(_int);
-          setTimeout(function () {
-            window.redirected = true;
-          }, 1200);
-          _this3.setState({ redirect: true });
-        }, 5000);
-        setTimeout(function () {
-          return _this3.setState({ int: _int });
-        }, 100);
-      }
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      if (this.state.int) {
-        clearInterval(this.state.int);
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _state = this.state,
-          event = _state.event,
-          redirect = _state.redirect;
-
-      if (event) {
-        return _react2.default.createElement(
-          'h1',
-          { style: { marginTop: '20px' } },
-          redirect && !window.redirected && _react2.default.createElement(_reactStatic.Redirect, { to: '/event/' + event.id }),
-          'Next event: ',
-          _react2.default.createElement(
-            _reactStatic.Link,
-            { to: '/event/' + event.id },
-            event.name
-          )
-        );
-      }
-      return null;
-    }
-  }]);
-
-  return CurrentEvent;
-}(_react2.default.Component);
-
-exports.default = (0, _reactStatic.withRouteData)(function (_ref2) {
-  var communities = _ref2.communities;
+exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
+  var communities = _ref.communities;
   return _react2.default.createElement(
     _Layout2.default,
     null,
     _react2.default.createElement(
       'div',
       { className: 'container pt-20' },
-      _react2.default.createElement(CurrentEvent, null),
+      _react2.default.createElement(_CurrentEvent2.default, null),
       _react2.default.createElement(_CommunityList2.default, { communities: communities })
     )
   );
@@ -549,11 +448,11 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _amount = __webpack_require__(43);
+var _amount = __webpack_require__(44);
 
 var _amount2 = _interopRequireDefault(_amount);
 
-var _participants = __webpack_require__(44);
+var _participants = __webpack_require__(45);
 
 var _participants2 = _interopRequireDefault(_participants);
 
@@ -1229,7 +1128,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
           _react2.default.createElement(
             'span',
             { className: 'badge-desc' },
-            event.date,
+            _react2.default.createElement(_EventDate2.default, { start: event.date, end: event.dateEnd }),
             ', ',
             event.address
           )
@@ -1304,7 +1203,7 @@ var _Layout = __webpack_require__(2);
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _Text = __webpack_require__(45);
+var _Text = __webpack_require__(46);
 
 var _Text2 = _interopRequireDefault(_Text);
 
@@ -1622,7 +1521,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactStatic = __webpack_require__(1);
 
-var _Event = __webpack_require__(46);
+var _Event = __webpack_require__(47);
 
 var _Event2 = _interopRequireDefault(_Event);
 
@@ -1654,7 +1553,7 @@ var _Layout = __webpack_require__(2);
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _EventList = __webpack_require__(51);
+var _EventList = __webpack_require__(52);
 
 var _EventList2 = _interopRequireDefault(_EventList);
 
@@ -1738,7 +1637,7 @@ var _Layout = __webpack_require__(2);
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _Speaker = __webpack_require__(52);
+var _Speaker = __webpack_require__(53);
 
 var _Speaker2 = _interopRequireDefault(_Speaker);
 
@@ -1897,7 +1796,7 @@ var _Layout = __webpack_require__(2);
 
 var _Layout2 = _interopRequireDefault(_Layout);
 
-var _SpeakerList = __webpack_require__(58);
+var _SpeakerList = __webpack_require__(59);
 
 var _SpeakerList2 = _interopRequireDefault(_SpeakerList);
 
@@ -2149,13 +2048,13 @@ var _reactStaticRoutes2 = _interopRequireDefault(_reactStaticRoutes);
 
 var _reactApollo = __webpack_require__(14);
 
-__webpack_require__(59);
+__webpack_require__(60);
 
 var _apollo = __webpack_require__(4);
 
 var _apollo2 = _interopRequireDefault(_apollo);
 
-__webpack_require__(60);
+__webpack_require__(61);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -3158,36 +3057,12 @@ module.exports = require("hoist-non-react-statics");
 
 /***/ }),
 /* 37 */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-client");
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-link-http");
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-module.exports = require("apollo-cache-inmemory");
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-module.exports = require("node-fetch");
-
-/***/ }),
-/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/img.e1954899.png";
 
 /***/ }),
-/* 42 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3224,10 +3099,21 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 var cardStyle = {
-  width: '18rem',
-  marginRight: '5px',
-  marginLeft: '5px',
-  marginBottom: '5px'
+  width: '300px',
+  maxWidth: '300px',
+  maxHeight: '300px',
+  height: '300px',
+  overflow: 'hidden',
+  marginBottom: '20px',
+  justifyContent: 'center',
+  alignItems: 'center'
+};
+
+var blockStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'space-around',
+  flexWrap: 'wrap'
 };
 
 var query = (0, _graphqlTag2.default)(_templateObject);
@@ -3278,33 +3164,23 @@ var CommunityList = function (_React$Component) {
         ),
         _react2.default.createElement(
           'div',
-          { style: { display: 'flex', flexDirection: 'row' } },
+          { style: blockStyle },
           list.map(function (_ref2) {
             var id = _ref2.id,
                 name = _ref2.name,
                 site = _ref2.site,
-                description = _ref2.description,
                 logo = _ref2.logo;
             return _react2.default.createElement(
               'div',
               { key: id, className: 'card', style: cardStyle },
-              logo && _react2.default.createElement('img', { className: 'card-img-top', src: logo.url, alt: name }),
               _react2.default.createElement(
-                'div',
-                { className: 'card-body' },
-                _react2.default.createElement(
+                'a',
+                { target: '_blank', href: site },
+                logo && _react2.default.createElement('img', { src: logo.url, style: { maxWidth: '300px', maxHeight: '300px' }, alt: name }),
+                !logo && _react2.default.createElement(
                   'h5',
                   { className: 'card-title' },
-                  _react2.default.createElement(
-                    'a',
-                    { href: site, target: '_blank' },
-                    name
-                  )
-                ),
-                description && _react2.default.createElement(
-                  'p',
-                  { className: 'card-text' },
-                  description
+                  name
                 )
               )
             );
@@ -3325,19 +3201,168 @@ var CommunityList = function (_React$Component) {
 exports.default = CommunityList;
 
 /***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-client");
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-link-http");
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+module.exports = require("apollo-cache-inmemory");
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+module.exports = require("node-fetch");
+
+/***/ }),
 /* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/amount.3e07a299.png";
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _templateObject = _taggedTemplateLiteral(['\nquery {\n  allEvents(\n    first: 1\n    orderBy: date_DESC\n  ) {\n    id\n    name\n    date\n  }\n}'], ['\nquery {\n  allEvents(\n    first: 1\n    orderBy: date_DESC\n  ) {\n    id\n    name\n    date\n  }\n}']);
+
+var _react = __webpack_require__(0);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactStatic = __webpack_require__(1);
+
+var _dateFns = __webpack_require__(6);
+
+var _graphqlTag = __webpack_require__(3);
+
+var _graphqlTag2 = _interopRequireDefault(_graphqlTag);
+
+var _apollo = __webpack_require__(4);
+
+var _apollo2 = _interopRequireDefault(_apollo);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _taggedTemplateLiteral(strings, raw) { return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var CurrentEvent = function (_React$Component) {
+  _inherits(CurrentEvent, _React$Component);
+
+  function CurrentEvent() {
+    _classCallCheck(this, CurrentEvent);
+
+    var _this = _possibleConstructorReturn(this, (CurrentEvent.__proto__ || Object.getPrototypeOf(CurrentEvent)).call(this));
+
+    _this.state = { event: null };
+    return _this;
+  }
+
+  _createClass(CurrentEvent, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var _this2 = this;
+
+      var query = (0, _graphqlTag2.default)(_templateObject);
+      _apollo2.default.query({ query: query }).then(function (_ref) {
+        var allEvents = _ref.data.allEvents;
+
+        var event = allEvents[0];
+        if (event && ((0, _dateFns.isFuture)(event.date) || (0, _dateFns.isToday)(event.date))) {
+          _this2.setState({ event: event });
+        }
+      }).catch(console.log);
+    }
+  }, {
+    key: 'componentWillUpdate',
+    value: function componentWillUpdate(np, ns) {
+      var _this3 = this;
+
+      var event = ns.event,
+          int = ns.int;
+
+      if (event && event.id && !window.redirected && !int) {
+        var _int = setInterval(function () {
+          clearInterval(_int);
+          setTimeout(function () {
+            window.redirected = true;
+          }, 1200);
+          _this3.setState({ redirect: true });
+        }, 5000);
+        setTimeout(function () {
+          return _this3.setState({ int: _int });
+        }, 100);
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      if (this.state.int) {
+        clearInterval(this.state.int);
+      }
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _state = this.state,
+          event = _state.event,
+          redirect = _state.redirect;
+
+      if (event) {
+        return _react2.default.createElement(
+          'h1',
+          { style: { marginTop: '20px' } },
+          redirect && !window.redirected && _react2.default.createElement(_reactStatic.Redirect, { to: '/event/' + event.id }),
+          'Next event: ',
+          _react2.default.createElement(
+            _reactStatic.Link,
+            { to: '/event/' + event.id },
+            event.name
+          )
+        );
+      }
+      return null;
+    }
+  }]);
+
+  return CurrentEvent;
+}(_react2.default.Component);
+
+exports.default = CurrentEvent;
 
 /***/ }),
 /* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__.p + "static/participants.66345e8d.png";
+module.exports = __webpack_require__.p + "static/amount.3e07a299.png";
 
 /***/ }),
 /* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__.p + "static/participants.66345e8d.png";
+
+/***/ }),
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3368,7 +3393,7 @@ var Text = function Text(_ref) {
 exports.default = Text;
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3396,13 +3421,13 @@ var _apollo = __webpack_require__(4);
 
 var _apollo2 = _interopRequireDefault(_apollo);
 
-var _query = __webpack_require__(47);
+var _query = __webpack_require__(48);
 
-var _imgWhite = __webpack_require__(48);
+var _imgWhite = __webpack_require__(49);
 
 var _imgWhite2 = _interopRequireDefault(_imgWhite);
 
-var _imgGreen = __webpack_require__(49);
+var _imgGreen = __webpack_require__(50);
 
 var _imgGreen2 = _interopRequireDefault(_imgGreen);
 
@@ -3410,7 +3435,7 @@ var _EventDate = __webpack_require__(7);
 
 var _EventDate2 = _interopRequireDefault(_EventDate);
 
-var _EventTime = __webpack_require__(50);
+var _EventTime = __webpack_require__(51);
 
 var _EventTime2 = _interopRequireDefault(_EventTime);
 
@@ -3642,7 +3667,7 @@ var Event = function (_React$Component) {
 exports.default = Event;
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3658,19 +3683,19 @@ var query = "\nquery {\n  allEvents(orderBy: date_DESC) {\n    " + eventInfo + "
 exports.default = query;
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/img-white.e4ea1e05.png";
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__.p + "static/img-green.e7936c9f.png";
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3721,7 +3746,7 @@ var EventTime = function EventTime(_ref) {
 exports.default = EventTime;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3838,7 +3863,7 @@ var EventList = function (_React$Component) {
 exports.default = EventList;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3870,23 +3895,23 @@ var _Accordion = __webpack_require__(19);
 
 var _Accordion2 = _interopRequireDefault(_Accordion);
 
-var _twitter = __webpack_require__(53);
+var _twitter = __webpack_require__(54);
 
 var _twitter2 = _interopRequireDefault(_twitter);
 
-var _telegram = __webpack_require__(54);
+var _telegram = __webpack_require__(55);
 
 var _telegram2 = _interopRequireDefault(_telegram);
 
-var _vk = __webpack_require__(55);
+var _vk = __webpack_require__(56);
 
 var _vk2 = _interopRequireDefault(_vk);
 
-var _facebook = __webpack_require__(56);
+var _facebook = __webpack_require__(57);
 
 var _facebook2 = _interopRequireDefault(_facebook);
 
-var _youtube = __webpack_require__(57);
+var _youtube = __webpack_require__(58);
 
 var _youtube2 = _interopRequireDefault(_youtube);
 
@@ -4085,37 +4110,37 @@ var Speaker = function (_React$Component) {
 exports.default = Speaker;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,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"
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAD5AAAA+QEdhgSBAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAARdQTFRFYajeYqjeYqneY6neY6nfZKrfZ6vfaKzgaq3ga63gbK7gb7DhcrHhdLLidbPidrTierbjfLfkfrjkf7jkgLnkgbrlhLvlhbzmhrzmib7mjcDnjsHnkMLokcPok8PolMTplsXpl8bpmMbpmMbqmcfqm8jqnMnqn8rroMrroszspM3sps7sqdDtrtLur9PusNPusdTvstTvtdbvt9fwuNjwudjwvdvxv9zywN3yw97yxN/zxuDzx+Dzy+L0z+T10eX10ub21ej21+n32Or32uv33Oz44e754e/54u/54/D55vH66fP66/T77PT77PX77fX78ff88vj88/j88/n99vr9+Pv++fz++vz+/f7+/f7//v7//v//////A5rdZgAAAOpJREFUGBnlwWs7wmAABuCnTWFKcsjkfAw5HyoaRcOQhiVenv//O7Qt29U2vru6b/Q1KXfxtIxfpfabJM8QLb5Y+6StgChjxy8knx9ITiMksaGz46s0+0p+JBAwVWrRZmTn2yTv0EPZNuh42xnYEuwowxeb0d7pukzFjujIw6M+sstcQLxC1zg8eUGHOBnE0BVdbRk+ZVWzyNsJIGmwS0cvWb1ZAjImf5wiaL2IbIueFQQpDWj0pRFSn9TpsRBWODDJqkVHDWGjDcFzKXlN2yEi3LMiAdKuIDmHCJlNGTa1STGCvwzvreFf+QaD0E0AgZCD7QAAAABJRU5ErkJggg=="
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAPzAAAD8wF1XGupAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAQ5QTFRF////SW2SQICfSnWfUnqjT3efTXehTXagTnagTXWhTXahTXehTXahTnahTXahTXahTXahTXahTnehT3iiUHmjU3qkU3ukVHulVXylVn2mV36mXIGpXYKpXoOqY4etZomuaIuvcZG0cpK1c5O1c5S1d5a3fJu6fZu6fpy7f5y7f528g5+9i6bCjafDj6nEkKrEkarFla3HmLDJm7LKpLnPqr3SrcDUtsfZu8rbvczcvs3dxtPhytbjzNjkzdjkztnl0tzn1+Dq2eHr2uPr2+Ps4ujw4unw4+rw5evx6e7z6e706+/07PD17fH18vX48/b59Pb59ff59ff69vj6+fr8+vv8/P3+/f3+/v7/////BuTHogAAABF0Uk5TAAcIGBktSYSXmMHI2uPy8/XVqDFbAAABUklEQVQ4y4VT53rCMAw0K5skopTSQfceSRd00JbuXbqH3/9FKtkhzOD74fssnS1ZshiLkdJMy/E8xzK1FOtH1nAhhmtke9xp3Ycu+Hq605+xoQ92pu3P5WEA8rn4/EA/KqI70jYkwJZ56JAIXbzPTxb49FoDhsDA+rnDBG6KacRLYRhMAuyd3z5ezOJ+YXMr2CiQR2Mm0RnnvAEw00TeBZj6Qv4YIY/JLKJlNPB5gBOkHYAabWsihsUcwZdoOQU4QtqGyifS3ahwOMwTvEJnAnFDWGjg+rsos/QiARxS1LV3XI+rJK5CSyBDwMQT78R9MRI4MslWkBiv05HZks8kHHQpHirSaspCEco30tWsfhNdj4EsVLvU43Uh2Ie5N+J6VOrOZq3XX/jPKlb66o/z55JsVk+7izL9crlUaLVb+WHUX075adXfXj046tFTD2/y+P8DM7tgEmIgYHAAAAAASUVORK5CYII="
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAEVAAABFQEpfgIbAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAKVQTFRF////AAD/Rl2LRFWZS1qWR1WOSlqURFqWRlmTRVqVR1eURViTSFeVSVuSR1iSRlqUR1mTRliSSFqSR1mTR1iSR1qTR1mUR1mSRliTRlmTR1iSRlmUR1qTR1iUR1mTSFqTR1mTR1mUR1mTR1mUR1mTR1mTR1mUR1mTR1mTR1iTR1mTSFmTR1iTR1mUR1mTR1mTR1mSR1mTR1qTR1mTR1mTR1mTR1mTC81MmAAAADZ0Uk5TAAELDxESHyIoMDI0NTg9PlNUYGFlb3BzdHiIipefuLnBxcjM1dfY2drb3N3e3+jq6/P19/3+2Jd4mAAAAMRJREFUOMul09cSwiAQBdAVjb0XNEGNhaixF+T/P00x44hkAzN639g9LzBcAMK4kGgEZwSARNKSiACT1jDgdsBB2IEAZHhZTIIgiJNDGtzHeVBpZYEuJGlkgCk4QPMNBhnAU8t2eL1JHBzVPnf+DEywUqAkHaD8M1j6fl8Bz39mhoAaaCkioKKDugt0EFDVwRABc0p7aleglI5O+DUPrnfYu8Dub7B1gTgFhB0IszgbA3CzemsDMLO8BohUvb/qr3+YV/0fuxCrFu+iXGoAAAAASUVORK5CYII="
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAA3NCSVQICAjb4U/gAAAACXBIWXMAAAD2AAAA9gFrSKqbAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAHtQTFRF/////wAA/wAA/yAA/yQS8RwO8xgM8xcM9R0K9hoJ9xkQ+B4P+B4P9RwO9R0N9R0M9hwO9hwN9RsO9hwM9hwO9x0O9x0N9xwN9RsN9hwM9hwN9xwN9xwN9RwN9hwN9hwN9hsN9hwN9hwM9hwN9hwN9hwN9hwN9hwN9hwNkZNHvgAAACh0Uk5TAAEECA4SFRYaHR8iRUpQa253hJKUl5ibn6S/0tTV4OXo7/X3+Pr7/ezzJ9gAAACSSURBVDjLzZLJEoIwEAUbFXEBjeBCEMUV8v9fyIkSDc4ctW9T6aokbx78C1G88oij7jQwlRukMgFAWLivFCFgnYCFxIkk5LKQU8pCSfMaTtndExp6w57Z9vFpvAsw3z1lARaHWhZgaRVhZERhvD5LV0w2F+mR0/TqfbMX1DG7DQSlRq0uS123Whi9cmpp9dr/nBZxkmMWe+0UsQAAAABJRU5ErkJggg=="
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4316,13 +4341,13 @@ var SpeakerList = function (_React$Component) {
 exports.default = SpeakerList;
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
@@ -4330,4 +4355,4 @@ exports.default = SpeakerList;
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.1bd8cd7d.js.map
+//# sourceMappingURL=static.70a48d20.js.map
