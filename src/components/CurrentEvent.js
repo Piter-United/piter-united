@@ -45,7 +45,7 @@ query {
         setTimeout(() => {
           window.redirected = true
         }, 1200)
-        // this.setState({ redirect: true })
+        this.setState({ redirect: true })
       }, 500)
       setTimeout(() => this.setState({ int }), 100)
     }
