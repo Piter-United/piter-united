@@ -6,9 +6,8 @@ import CommunityList from '../components/CommunityList'
 import CurrentEvent from '../components/CurrentEvent.js'
 
 export default withRouteData(({ communities }) => (
-  <Layout>
-    <div className="container pt-20">
-      <CurrentEvent />
-      <CommunityList communities={communities} />
-    </div>
-  </Layout>))
+  <div className="container pt-20">
+    {/*<CurrentEvent />*/}
+    <CommunityList communities={communities} />
+  </div>
+))

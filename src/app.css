@@ -29,6 +29,9 @@ body{
 
 .logo{
 	font-size: 24px;
+	text-decoration: none;
+	transform: none;
+	color: #353B50;
 }
 
 /* Event Info */
@@ -411,3 +414,80 @@ a.itgm-styled-link{
   display: flex;
   flex-direction: column;
 }
+
+.container{
+	padding: 0px 0px;
+}
+
+.main-nav{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	padding-bottom: 20px;
+	padding-top: 60px;
+	margin-bottom: 80px;
+	border-bottom: 4px solid #353B50;
+}
+
+span.logo-main{
+	display: block;
+	font-size: 24px;
+	font-weight: 600;
+}
+
+a.community-title-link{
+	transform: none;
+	text-decoration: none;
+	color: #353B50;
+}
+
+h1.community-list-title{
+	/*font-weight: 600;*/
+	font-size: 24px;
+}
+
+.community-list{
+	padding-right: 100px;
+}
+
+.community-title{
+	/*font-weight: 600;*/
+	font-size: 24px; 
+}
+
+li.media{
+	margin-bottom: 40px;
+	border-bottom: 1px solid transparent;
+}
+
+li.media:hover h5{
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.media-body{
+	margin-left: 16px;
+}
+
+.comm-logo{
+	border-radius: 4px;
+}
+
+.card-events{
+	margin-top: 20px;
+	background-color: rgba(0,169,132,0.1);
+	border: none;
+	width: 100% !important;
+}
+
+img.event-img{
+	width: 200px;
+	position: absolute;
+	right: -80px;
+	bottom: -40px;
+}
+
+
+

@@ -6,6 +6,7 @@ import img from '../../public/img.png'
 const Btn = ({ to, text }) =>
   (<Link to={to} className="btn btn-light" style={{ marginRight: '10px' }} role="button">{text}</Link>)
 
+
 const Layout = ({ buttons, children }) =>
   (<div className="background">
     <div className="malina-left">
