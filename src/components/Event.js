@@ -78,7 +78,7 @@ export default class Event extends React.Component {
     return (
       <div className="event">
         <div className="container-fluid navigation">
-          <span className="logo">Piter United</span>
+          <Link className="logo" to={`/`}>Piter United</Link>
           <div className="share">
             <div
               id="my-share"
