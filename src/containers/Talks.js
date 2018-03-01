@@ -64,7 +64,7 @@ const Speaker = ({ id, name, company }) => (
 const Talk = ({ id, time, subject, description, speakers }) => (
   <tr key={id}>
     <th className="row theme-timing">{time}</th>
-    <td>
+    <td style={{ width: '100%' }}>
       <span className="theme-title">{subject}</span>
       {description && <span className="theme-desc"><Text text={description} /></span>}
       {speakers.map((s, i) => <span key={i} style={{ marginRight: '10px' }}><Speaker {...s} />{i < (speakers.length - 1) && ',' }</span>)}
