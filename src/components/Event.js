@@ -69,11 +69,13 @@ export default class Event extends React.Component {
     if (!event) {
       return null
     }
-    const partners = [].concat(
-      event.goldPartners,
-      event.silverPartners,
-      event.bronzePartners,
-      event.infoPartners)
+    const partners = []
+      .concat(
+        event.goldPartners,
+        event.silverPartners,
+        event.bronzePartners,
+        event.infoPartners)
+      .filter(p => p.logo && p.logo.url)
 
     return (
       <div className="event">

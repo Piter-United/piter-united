@@ -112,6 +112,10 @@ export default {
         })),
       },
       {
+        path: '/login',
+        component: 'src/containers/Login',
+      },
+      {
         is404: true,
         component: 'src/containers/404',
       },

@@ -24,11 +24,14 @@
     "react": "^16.0.0",
     "react-apollo": "^2.0.0",
     "react-dom": "^16.0.0",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
-    "react-static": "^5.1.14"
+    "react-static": "^5.1.14",
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "eslint-config-react-tools": "1.x.x",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
     "serve": "^6.1.0"
   }
 }

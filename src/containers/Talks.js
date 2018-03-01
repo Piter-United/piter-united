@@ -4,8 +4,20 @@ import gql from 'graphql-tag'
 import { withRouteData, Link } from 'react-static'
 
 import Layout from '../components/Layout'
+import Accordion from '../components/Accordion'
 import Text from '../components/Text'
 import EventDate from '../components/EventDate'
+
+function compareByTime(a, b) {
+  if (a.time < b.time) {
+    return -1
+  }
+  if (a.time > b.time) {
+    return 1
+  }
+  return 0
+}
+
 
 const TalksQuery = gql`
 query GetCommunityEventTalks($id: ID!){
@@ -44,7 +56,7 @@ query GetCommunityEventTalks($id: ID!){
 const Speaker = ({ id, name, company }) => (
   <span key={id}>
     <span className="theme-speaker">{name}</span>
-    {company.length && <span className="theme-speaker-company"> ({company[0].name})</span>
+    {company.length > 0 && <span className="theme-speaker-company"> ({company[0].name})</span>
     }
   </span>
 )
@@ -52,7 +64,7 @@ const Speaker = ({ id, name, company }) => (
 const Talk = ({ id, time, subject, description, speakers }) => (
   <tr key={id}>
     <th className="row theme-timing">{time}</th>
-    <td>
+    <td style={{ width: '100%' }}>
       <span className="theme-title">{subject}</span>
       {description && <span className="theme-desc"><Text text={description} /></span>}
       {speakers.map((s, i) => <span key={i} style={{ marginRight: '10px' }}><Speaker {...s} />{i < (speakers.length - 1) && ',' }</span>)}
@@ -60,28 +72,18 @@ const Talk = ({ id, time, subject, description, speakers }) => (
   </tr>
 )
 
-const TalksList = ({ talks, show }) => {
-  const cls = ['collapse']
-  if (show) {
-    cls.push('show')
-  }
-  return (
-    <div className={cls.join(' ')} aria-labelledby="headingOne">
-      <div className="card-body">
-        <table className="table">
-          <tbody>
-            {talks.map(Talk)}
-          </tbody>
-        </table>
-      </div>
-    </div>)
-}
+const TalksList = ({ talks }) => (
+  <table className="table">
+    <tbody>
+      {talks.map(Talk)}
+    </tbody>
+  </table>
+)
 
 class CommunityList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      opened: [],
       loading: true,
       error: null,
       community: {},
@@ -105,6 +107,7 @@ class CommunityList extends React.Component {
           } else {
             data[c.id] = Object.assign({}, c, { talks: [t] })
           }
+          data[c.id].talks.sort(compareByTime)
         })
       })
       st.community = data
@@ -114,43 +117,20 @@ class CommunityList extends React.Component {
     }
   }
 
-  toggle(id) {
-    const { opened } = this.state
-    if (!opened.includes(id)) {
-      opened.push(id)
-      this.setState({ opened })
-    } else {
-      const idx = opened.indexOf(id)
-      opened.splice(idx, 1)
-      this.setState({ opened })
-    }
-  }
-
   render() {
-    const { community, opened, loading, error } = this.state
+    const { community, loading, error } = this.state
     if (loading) {
       return (<p>Loading...</p>)
     } else if (error) {
       return (<p>Error!</p>)
     }
-    return Object.keys(community).map(id => (
-      <div className="card" key={id}>
-        <div className="card-header">
-          <h5 className="mb-0">
-            <button
-              onClick={() => this.toggle(id)}
-              className="btn programm-item"
-              data-toggle="collapse"
-              aria-expanded="true"
-              aria-controls="collapseOne"
-            >
-              {opened.includes(id) ? <span className="oi oi-chevron-bottom" /> : <span className="oi oi-chevron-right" />}
-              <span className="programm-item-title">{community[id].name}</span>
-            </button>
-          </h5>
-        </div>
-        <TalksList talks={community[id].talks} show={opened.includes(id)} />
-      </div>))
+    const items = Object.keys(community).map(id => (
+      {
+        title: community[id].name,
+        data: <TalksList talks={community[id].talks} />,
+      }
+    ))
+    return <Accordion items={items} />
   }
 }
 
