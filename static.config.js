@@ -42,6 +42,76 @@ export default {
     if (errors) {
       console.log(errors)
     }
+    let eventRoutes = events.map(event => ({
+      path: event.id,
+      component: 'src/containers/Event',
+      getData: () => ({ event }),
+      children: [
+        {
+          path: 'partner',
+          component: 'src/containers/Partner',
+          getData: () => ({
+            event: {
+              id: event.id,
+              name: event.name,
+              date: event.date,
+              dateEnd: event.dateEnd,
+              address: event.address,
+            },
+          }),
+        },
+        {
+          path: 'talks',
+          component: 'src/containers/Talks',
+          getData: () => ({
+            event: {
+              id: event.id,
+              name: event.name,
+              registration: event.registration,
+              timepadId: event.timepadId,
+              date: event.date,
+              dateEnd: event.dateEnd,
+              address: event.address,
+            },
+          }),
+        }],
+    }))
+
+    eventRoutes = eventRoutes.concat(events.map(event => ({
+      path: event.slug,
+      component: 'src/containers/Event',
+      getData: () => ({ event }),
+      children: [
+        {
+          path: 'partner',
+          component: 'src/containers/Partner',
+          getData: () => ({
+            event: {
+              id: event.id,
+              name: event.name,
+              date: event.date,
+              dateEnd: event.dateEnd,
+              address: event.address,
+            },
+          }),
+        },
+        {
+          path: 'talks',
+          component: 'src/containers/Talks',
+          getData: () => ({
+            event: {
+              id: event.id,
+              name: event.name,
+              registration: event.registration,
+              timepadId: event.timepadId,
+              date: event.date,
+              dateEnd: event.dateEnd,
+              address: event.address,
+            },
+          }),
+        }],
+    })))
+
     return [
       {
         path: '/',
@@ -52,40 +122,7 @@ export default {
         path: '/event',
         component: 'src/containers/Events',
         getData: () => ({ events }),
-        children: events.map(event => ({
-          path: event.id,
-          component: 'src/containers/Event',
-          getData: () => ({ event }),
-          children: [
-            {
-              path: 'partner',
-              component: 'src/containers/Partner',
-              getData: () => ({
-                event: {
-                  id: event.id,
-                  name: event.name,
-                  date: event.date,
-                  dateEnd: event.dateEnd,
-                  address: event.address,
-                },
-              }),
-            },
-            {
-              path: 'talks',
-              component: 'src/containers/Talks',
-              getData: () => ({
-                event: {
-                  id: event.id,
-                  name: event.name,
-                  registration: event.registration,
-                  timepadId: event.timepadId,
-                  date: event.date,
-                  dateEnd: event.dateEnd,
-                  address: event.address,
-                },
-              }),
-            }],
-        })),
+        children: eventRoutes,
       },
       {
         path: '/about',

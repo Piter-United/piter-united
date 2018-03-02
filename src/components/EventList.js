@@ -8,6 +8,7 @@ const query = gql`
 query {
   allEvents(orderBy: date_DESC) {
     id
+    slug
     name
   }
 }`
@@ -37,9 +38,9 @@ export default class EventList extends React.Component {
         <h1>Events list</h1>
         <br />
         <ul>
-          {list.map(({ id, name }) => (
+          {list.map(({ id, slug, name }) => (
             <li key={id}>
-              <Link to={`/event/${id}/`}>{name}</Link>
+              <Link to={`/event/${slug}/`}>{name}</Link>
             </li>
           ))}
         </ul>

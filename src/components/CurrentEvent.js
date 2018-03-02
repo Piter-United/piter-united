@@ -21,6 +21,7 @@ query {
   ) {
     id
     name
+    slug
     address
     description
     date
@@ -65,9 +66,9 @@ query {
             {<h5 className="card-title"> <strong>{event.name}</strong></h5>}
             <h6 className="card-subtitle mb-2 text-muted"><EventDate start={event.date} end={event.dateEnd} />, {event.address}</h6>
             <p className="card-text">{event.description}</p>
-            {redirect && !window.redirected && <Redirect to={`/event/${event.id}`} />}
+            {redirect && !window.redirected && <Redirect to={`/event/${event.slug}`} />}
             <Link to={`/event/${event.id}`}>Подробнее...</Link>
-            <img src="img-white.png" className="event-img" />
+            <img alt="" src="img-white.png" className="event-img" />
           </div>
         </div>
       )

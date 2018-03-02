@@ -1,5 +1,6 @@
 export const eventInfo = `
 id
+slug
 name
 date
 dateEnd
