@@ -3594,13 +3594,18 @@ var PartnersList = function PartnersList(_ref) {
         title = _ref2.title,
         site = _ref2.site,
         url = _ref2.logo.url;
+
+    var styles = {};
+    if (id === 'cje04towv5rah0197k9el9exj') {
+      styles.height = '50px';
+    }
     return _react2.default.createElement(
       'div',
       { key: id, className: 'partner-logo' },
       _react2.default.createElement(
         'a',
         { target: '_blank', href: site },
-        _react2.default.createElement('img', { alt: title, src: url })
+        _react2.default.createElement('img', { style: styles, alt: title, src: url })
       )
     );
   });
@@ -4635,4 +4640,4 @@ exports.default = function () {
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.8988c5c6.js.map
+//# sourceMappingURL=static.3eb978be.js.map
