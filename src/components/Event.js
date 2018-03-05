@@ -11,9 +11,9 @@ import imgGreen from '../../public/img-green.png'
 import EventDate from '../components/EventDate'
 import EventTime from '../components/EventTime'
 
-const PartnersList = ({ list }) => (list.map(({ id, title, site, logo: { url } }) => {
+const PartnersList = ({ slug, list }) => (list.map(({ id, title, site, logo: { url } }) => {
   const styles = {}
-  if (id === 'cje04towv5rah0197k9el9exj') {
+  if (id === 'cje04towv5rah0197k9el9exj' && slug === 'itgm12') {
     styles.height = '50px'
   }
   return (<div key={id} className="partner-logo"><a target="_blank" href={site}><img style={styles} alt={title} src={url} /></a></div>)
@@ -122,7 +122,7 @@ export default class Event extends React.Component {
           <div className="partner-logo">
             <span className="partners-title">Партнеры:</span>
           </div>
-          <PartnersList list={partners} />
+          <PartnersList slug={event.slug} list={partners} />
           <div className="partner-logo new">
             <Link to={`/event/${event.slug}/partner`} className="btn active new-partner" role="button" aria-pressed="true"> Стать партнером</Link>
           </div>
