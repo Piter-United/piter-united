@@ -11,9 +11,13 @@ import imgGreen from '../../public/img-green.png'
 import EventDate from '../components/EventDate'
 import EventTime from '../components/EventTime'
 
-const PartnersList = ({ list }) =>
-  (list.map(({ id, title, site, logo: { url } }) =>
-    (<div key={id} className="partner-logo"><a target="_blank" href={site}><img alt={title} src={url} /></a></div>)))
+const PartnersList = ({ list }) => (list.map(({ id, title, site, logo: { url } }) => {
+  const styles = {}
+  if (id === 'cje04towv5rah0197k9el9exj') {
+    styles.height = '50px'
+  }
+  return (<div key={id} className="partner-logo"><a target="_blank" href={site}><img style={styles} alt={title} src={url} /></a></div>)
+}))
 
 
 const shareBtns = event => {
