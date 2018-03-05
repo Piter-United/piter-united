@@ -80,7 +80,7 @@ export default class Event extends React.Component {
     return (
       <div className="event">
         <div className="container-fluid navigation">
-          <Link className="logo" to={`/`}>Piter United</Link>
+          <Link className="logo" to="/">Piter United</Link>
           <div className="share">
             <div
               id="my-share"
@@ -112,7 +112,7 @@ export default class Event extends React.Component {
           <span className="event-time"><EventTime start={event.date} end={event.dateEnd} /></span>
           {event.registration && <button type="button" onClick={() => window.open(`https://piter-united.timepad.ru/event/${event.timepadId}/`)} className="btn btn-dark reg-button-primary">Регистрация</button>}
           <br />
-          <Link to={`/event/${event.id}/talks`} className="btn active programm-button" role="button" aria-pressed="true">программа</Link>
+          <Link to={`/event/${event.slug}/talks`} className="btn active programm-button" role="button" aria-pressed="true">программа</Link>
         </div>
         <div className="container-fluid event-partners">
           <div className="partner-logo">
@@ -120,7 +120,7 @@ export default class Event extends React.Component {
           </div>
           <PartnersList list={partners} />
           <div className="partner-logo new">
-            <Link to={`/event/${event.id}/partner`} className="btn active new-partner" role="button" aria-pressed="true"> Стать партнером</Link>
+            <Link to={`/event/${event.slug}/partner`} className="btn active new-partner" role="button" aria-pressed="true"> Стать партнером</Link>
           </div>
         </div>
       </div>
