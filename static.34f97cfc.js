@@ -3588,7 +3588,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 var PartnersList = function PartnersList(_ref) {
-  var list = _ref.list;
+  var slug = _ref.slug,
+      list = _ref.list;
   return list.map(function (_ref2) {
     var id = _ref2.id,
         title = _ref2.title,
@@ -3596,7 +3597,7 @@ var PartnersList = function PartnersList(_ref) {
         url = _ref2.logo.url;
 
     var styles = {};
-    if (id === 'cje04towv5rah0197k9el9exj') {
+    if (id === 'cje04towv5rah0197k9el9exj' && slug === 'itgm12') {
       styles.height = '50px';
     }
     return _react2.default.createElement(
@@ -3778,7 +3779,7 @@ var Event = function (_React$Component) {
               '\u041F\u0430\u0440\u0442\u043D\u0435\u0440\u044B:'
             )
           ),
-          _react2.default.createElement(PartnersList, { list: partners }),
+          _react2.default.createElement(PartnersList, { slug: event.slug, list: partners }),
           _react2.default.createElement(
             'div',
             { className: 'partner-logo new' },
@@ -4640,4 +4641,4 @@ exports.default = function () {
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.3eb978be.js.map
+//# sourceMappingURL=static.34f97cfc.js.map
