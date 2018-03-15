@@ -66,7 +66,7 @@ class Modal extends React.Component {
           </div>
         </div>
       </div>,
-      <a role="button" tabIndex="-1" key={`${id}-1`} style={{ cursor: 'pointer' }} onClick={this.toggle}><img style={styles} alt={name} src={url} /></a>,
+      <a role="button" tabIndex="-1" key={`${id}-1`} style={{ cursor: 'pointer' }} onClick={this.toggle}><img style={styles} alt={title} src={url} /></a>,
     ]
   }
 }
