@@ -10,14 +10,76 @@ import imgGreen from '../../public/img-green.png'
 
 import EventDate from '../components/EventDate'
 import EventTime from '../components/EventTime'
+import Text from '../components/Text'
 
-const PartnersList = ({ slug, list }) => (list.map(({ id, title, site, logo: { url } }) => {
-  const styles = {}
-  if (id === 'cje04towv5rah0197k9el9exj' && slug === 'itgm12') {
-    styles.height = '50px'
+class Modal extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { show: false }
+    this.toggle = this.toggle.bind(this)
   }
-  return (<div key={id} className="partner-logo"><a target="_blank" href={site}><img style={styles} alt={title} src={url} /></a></div>)
-}))
+
+  toggle() {
+    this.setState({ show: !this.state.show })
+  }
+
+  render() {
+    const { id, slug, site, url, title, body } = this.props
+    const { show } = this.state
+    const styles = {}
+    if (id === 'cje04towv5rah0197k9el9exj' && slug === 'itgm12') {
+      styles.height = '50px'
+    }
+
+    const classes = ['modal', 'fade']
+    let display = 'none'
+    if (show) {
+      classes.push('show')
+      display = 'block'
+    }
+
+    return [
+      <div key={`${id}-0`} style={{ display }}>
+        <div className="modal-backdrop" style={{ opacity: '0.6' }} />
+        <div
+          className={classes.join(' ')}
+          tabIndex="-1"
+          role="dialog"
+          style={{ display }}
+        >
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">{title || 'Модальное окно'}</h5>
+                <button type="button" className="close" onClick={this.toggle} aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body" style={{ textAlign: 'left' }}>
+                <Text text={body || 'Text'} />
+                <a href={site} target="_blank">{site}</a>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-secondary" onClick={this.toggle}>Закрыть</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>,
+      <a role="button" tabIndex="-1" key={`${id}-1`} style={{ cursor: 'pointer' }} onClick={this.toggle}><img style={styles} alt={name} src={url} /></a>,
+    ]
+  }
+}
+
+const PartnersList = ({ slug, list, platinum }) => (
+  [platinum.map(({ id, name, description, site, logo: { url } }) => (
+    <div key={id} className="partner-logo">
+      <Modal id={id} slug={slug} title={name} site={site} url={url} body={description} />
+    </div>)),
+  list.map(({ id, name, site, logo: { url } }) => {
+    const styles = {}
+    return (<div key={id} className="partner-logo"><a target="_blank" href={site}><img style={styles} alt={name} src={url} /></a></div>)
+  })])
 
 
 const shareBtns = event => {
@@ -122,7 +184,7 @@ export default class Event extends React.Component {
           <div className="partner-logo">
             <span className="partners-title">Партнеры:</span>
           </div>
-          <PartnersList slug={event.slug} list={partners} />
+          <PartnersList slug={event.slug} platinum={event.platinumPartners} list={partners} />
           <div className="partner-logo new">
             <Link to={`/event/${event.slug}/partner`} className="btn active new-partner" role="button" aria-pressed="true"> Стать партнером</Link>
           </div>

@@ -17,6 +17,15 @@ program {
   time
   title
 }
+platinumPartners {
+  id
+  name
+  description
+  site
+  logo {
+    url
+  }
+}
 goldPartners {
   id
   name
