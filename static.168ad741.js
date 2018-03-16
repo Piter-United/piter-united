@@ -1454,7 +1454,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _templateObject = _taggedTemplateLiteral(['\nquery GetCommunityEventTalks($id: ID!){\n  allCommunityEventTalks(filter: {\n    event: {id: $id}\n  }) {\n    id\n    time\n    subject\n    description\n    community {\n      id\n      name\n      logo {\n        url\n      }\n    }\n    speakers {\n      id\n      name\n      social\n      company(last: 1) {\n        id\n        name\n        logo {\n          url\n        }\n      }\n      photo {\n        url\n      }\n    }\n  }\n}'], ['\nquery GetCommunityEventTalks($id: ID!){\n  allCommunityEventTalks(filter: {\n    event: {id: $id}\n  }) {\n    id\n    time\n    subject\n    description\n    community {\n      id\n      name\n      logo {\n        url\n      }\n    }\n    speakers {\n      id\n      name\n      social\n      company(last: 1) {\n        id\n        name\n        logo {\n          url\n        }\n      }\n      photo {\n        url\n      }\n    }\n  }\n}']);
+var _templateObject = _taggedTemplateLiteral(['\nquery ($id: ID!){\n  allCommunityEventTalks(filter: {\n    event: {id: $id}\n  }) {\n    id\n    time\n    subject\n    description\n    community {\n      id\n      name\n      logo {\n        url\n      }\n    }\n    speakers {\n      id\n      name\n      social\n      company(last: 1) {\n        id\n        name\n        logo {\n          url\n        }\n}\n      photo {\n        url\n      }\n    }\n  }\n  allCompanyEventTalks(filter: {\n    event: {id: $id}\n  }) {\n    id\n    time\n    subject\n    description\n    speakers\n    company {\n      id\n      name\n      site\n    }\n  }\n}'], ['\nquery ($id: ID!){\n  allCommunityEventTalks(filter: {\n    event: {id: $id}\n  }) {\n    id\n    time\n    subject\n    description\n    community {\n      id\n      name\n      logo {\n        url\n      }\n    }\n    speakers {\n      id\n      name\n      social\n      company(last: 1) {\n        id\n        name\n        logo {\n          url\n        }\n}\n      photo {\n        url\n      }\n    }\n  }\n  allCompanyEventTalks(filter: {\n    event: {id: $id}\n  }) {\n    id\n    time\n    subject\n    description\n    speakers\n    company {\n      id\n      name\n      site\n    }\n  }\n}']);
 
 var _react = __webpack_require__(0);
 
@@ -1555,7 +1555,12 @@ var Talk = function Talk(_ref2) {
         { className: 'theme-desc' },
         _react2.default.createElement(_Text2.default, { text: description })
       ),
-      speakers.map(function (s, i) {
+      speakers && typeof speakers === 'String' && _react2.default.createElement(
+        'span',
+        { key: i, style: { marginRight: '10px' } },
+        speakers
+      ),
+      speakers && typeof speakers === 'Object' && speakers.map(function (s, i) {
         return _react2.default.createElement(
           'span',
           { key: i, style: { marginRight: '10px' } },
@@ -1591,7 +1596,8 @@ var CommunityList = function (_React$Component) {
     _this.state = {
       loading: true,
       error: null,
-      community: {}
+      community: {},
+      company: {}
     };
     return _this;
   }
@@ -1600,16 +1606,30 @@ var CommunityList = function (_React$Component) {
     key: 'componentWillReceiveProps',
     value: function componentWillReceiveProps(next) {
       var pr = this.props.data.allCommunityEventTalks || [];
-      var nx = next.data.allCommunityEventTalks || [];
+      var cr = this.props.data.allCompanyEventTalks || [];
+      var np = next.data.allCommunityEventTalks || [];
+      var nc = next.data.allCompanyEventTalks || [];
       var st = null;
       if (next.data) {
         st = {};
         st.loading = next.data.loading;
         st.error = next.data.error;
       }
-      if (pr !== nx) {
+      if (cr !== nc) {
+        var cData = {};
+        nc.forEach(function (t) {
+          if (t.company.id in cData) {
+            cData[t.company.id].talks.push(t);
+          } else {
+            cData[t.company.id] = Object.assign({}, t.company, { talks: [t] });
+          }
+          cData[t.company.id].talks.sort(compareByTime);
+        });
+        st.company = cData;
+      }
+      if (pr !== np) {
         var data = {};
-        nx.forEach(function (t) {
+        np.forEach(function (t) {
           t.community.forEach(function (c) {
             if (c.id in data) {
               data[c.id].talks.push(t);
@@ -1630,29 +1650,54 @@ var CommunityList = function (_React$Component) {
     value: function render() {
       var _state = this.state,
           community = _state.community,
+          company = _state.company,
           loading = _state.loading,
           error = _state.error;
 
       if (loading) {
         return _react2.default.createElement(
-          'p',
-          null,
+          'h2',
+          { className: 'text-center' },
           'Loading...'
         );
       } else if (error) {
         return _react2.default.createElement(
-          'p',
-          null,
+          'h2',
+          { className: 'text-center' },
           'Error!'
         );
       }
-      var items = Object.keys(community).map(function (id) {
+      var itemsProgram = Object.keys(community).map(function (id) {
         return {
           title: community[id].name,
           data: _react2.default.createElement(TalksList, { talks: community[id].talks })
         };
       });
-      return _react2.default.createElement(_Accordion2.default, { items: items });
+      var itemsCompany = Object.keys(company).map(function (id) {
+        return {
+          title: company[id].name,
+          data: _react2.default.createElement(TalksList, { talks: company[id].talks })
+        };
+      });
+      return _react2.default.createElement(
+        'div',
+        { className: 'container programm-list' },
+        _react2.default.createElement(
+          'span',
+          { className: 'programm-title' },
+          '\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430 \u043D\u0430 \u043E\u0441\u0442\u0440\u043E\u0432\u043A\u0430\u0445 \u0441\u043F\u043E\u043D\u0441\u043E\u0440\u043E\u0432'
+        ),
+        _react2.default.createElement(_Accordion2.default, { items: itemsCompany }),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('hr', null),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement(
+          'span',
+          { className: 'programm-title' },
+          '\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430'
+        ),
+        _react2.default.createElement(_Accordion2.default, { items: itemsProgram })
+      );
     }
   }]);
 
@@ -1711,16 +1756,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref5) {
   return _react2.default.createElement(
     _Layout2.default,
     { buttons: BackBtn(event), classes: ['programm-list'] },
-    _react2.default.createElement(
-      'div',
-      { className: 'container programm-list' },
-      _react2.default.createElement(
-        'span',
-        { className: 'programm-title' },
-        '\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0430'
-      ),
-      _react2.default.createElement(Talks, { id: event.id })
-    )
+    _react2.default.createElement(Talks, { id: event.id })
   );
 });
 
@@ -4765,4 +4801,4 @@ exports.default = function () {
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.56ca2859.js.map
+//# sourceMappingURL=static.168ad741.js.map
