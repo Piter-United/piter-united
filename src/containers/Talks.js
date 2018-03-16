@@ -20,7 +20,7 @@ function compareByTime(a, b) {
 
 
 const TalksQuery = gql`
-query GetCommunityEventTalks($id: ID!){
+query ($id: ID!){
   allCommunityEventTalks(filter: {
     event: {id: $id}
   }) {
@@ -45,10 +45,24 @@ query GetCommunityEventTalks($id: ID!){
         logo {
           url
         }
-      }
+}
       photo {
         url
       }
+    }
+  }
+  allCompanyEventTalks(filter: {
+    event: {id: $id}
+  }) {
+    id
+    time
+    subject
+    description
+    speakers
+    company {
+      id
+      name
+      site
     }
   }
 }`
@@ -67,7 +81,8 @@ const Talk = ({ id, time, subject, description, speakers }) => (
     <td style={{ width: '100%' }}>
       <span className="theme-title">{subject}</span>
       {description && <span className="theme-desc"><Text text={description} /></span>}
-      {speakers.map((s, i) => <span key={i} style={{ marginRight: '10px' }}><Speaker {...s} />{i < (speakers.length - 1) && ',' }</span>)}
+      {speakers && typeof speakers === 'String' && <span key={i} style={{ marginRight: '10px' }}>{speakers}</span>}
+      {speakers && typeof speakers === 'Object' && speakers.map((s, i) => <span key={i} style={{ marginRight: '10px' }}><Speaker {...s} />{i < (speakers.length - 1) && ',' }</span>)}
     </td>
   </tr>
 )
@@ -87,20 +102,35 @@ class CommunityList extends React.Component {
       loading: true,
       error: null,
       community: {},
+      company: {},
     }
   }
   componentWillReceiveProps(next) {
     const pr = this.props.data.allCommunityEventTalks || []
-    const nx = next.data.allCommunityEventTalks || []
+    const cr = this.props.data.allCompanyEventTalks|| []
+    const np = next.data.allCommunityEventTalks || []
+    const nc = next.data.allCompanyEventTalks || []
     let st = null
     if (next.data) {
       st = {}
       st.loading = next.data.loading
       st.error = next.data.error
     }
-    if (pr !== nx) {
+    if (cr !== nc) {
+      const cData = {}
+      nc.forEach(t => {
+        if (t.company.id in cData) {
+          cData[t.company.id].talks.push(t)
+        } else {
+          cData[t.company.id] = Object.assign({}, t.company, { talks: [t] })
+        }
+        cData[t.company.id].talks.sort(compareByTime)
+      })
+      st.company = cData
+    }
+    if (pr !== np) {
       const data = {}
-      nx.forEach(t => {
+      np.forEach(t => {
         t.community.forEach(c => {
           if (c.id in data) {
             data[c.id].talks.push(t)
@@ -118,19 +148,34 @@ class CommunityList extends React.Component {
   }
 
   render() {
-    const { community, loading, error } = this.state
+    const { community, company, loading, error } = this.state
     if (loading) {
-      return (<p>Loading...</p>)
+      return (<h2 className="text-center">Loading...</h2>)
     } else if (error) {
-      return (<p>Error!</p>)
+      return (<h2 className="text-center">Error!</h2>)
     }
-    const items = Object.keys(community).map(id => (
+    const itemsProgram = Object.keys(community).map(id => (
       {
         title: community[id].name,
         data: <TalksList talks={community[id].talks} />,
       }
     ))
-    return <Accordion items={items} />
+    const itemsCompany = Object.keys(company).map(id => (
+      {
+        title: company[id].name,
+        data: <TalksList talks={company[id].talks} />,
+      }
+    ))
+    return (
+      <div className="container programm-list">
+        <span className="programm-title">Программа на островках спонсоров</span>
+        <Accordion items={itemsCompany} />
+        <br />
+        <hr />
+        <br />
+        <span className="programm-title">Программа</span>
+        <Accordion items={itemsProgram} />
+      </div>)
   }
 }
 
@@ -154,9 +199,6 @@ const BackBtn = event => ([
 
 export default withRouteData(({ event }) => (
   <Layout buttons={BackBtn(event)} classes={['programm-list']}>
-    <div className="container programm-list">
-      <span className="programm-title">Программа</span>
-      <Talks id={event.id} />
-    </div>
+    <Talks id={event.id} />
   </Layout>
 ))
