@@ -1006,7 +1006,7 @@ exports.default = (0, _reactStatic.withRouteData)(function (_ref) {
             _react2.default.createElement(
               'th',
               { scope: 'col', className: 'package' },
-              'Glod'
+              'Gold'
             ),
             _react2.default.createElement(
               'th',
@@ -4801,4 +4801,4 @@ exports.default = function () {
 /***/ })
 /******/ ]);
 });
-//# sourceMappingURL=static.168ad741.js.map
+//# sourceMappingURL=static.04413f80.js.map
