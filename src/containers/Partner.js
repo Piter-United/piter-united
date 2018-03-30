@@ -118,7 +118,7 @@ export default withRouteData(({ event }) => (
             <th scope="col">Возможности</th>
             <th scope="col" className="package">Bronze</th>
             <th scope="col" className="package">Silver</th>
-            <th scope="col" className="package">Glod</th>
+            <th scope="col" className="package">Gold</th>
             <th scope="col" className="package">Platinum</th>
           </tr>
         </thead>
